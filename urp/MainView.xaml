@@ -1,0 +1,33 @@
+﻿<Page
+    x:Class="urp.MainView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:urp"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:Windows10version1803="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 6)"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Rectangle  Fill="{ThemeResource SystemControlAcrylicWindowBrush}"/>
+        <NavigationView IsSettingsVisible="False" IsPaneOpen="False" AlwaysShowHeader="False" Windows10version1803:IsBackButtonVisible="Collapsed" x:Name="MainNavigation">
+            <NavigationView.MenuItems> 
+                <NavigationViewItem Name="gerenxinxi" Tapped="Gerenxinxi_OnTapped" Icon="List" Content="个人信息" Tag="个人信息" />
+                <NavigationViewItem Name="chengji" Tapped="Chengji_OnTapped" Icon="Save" Content="成绩" Tag="成绩" />
+                <NavigationViewItem Name="jidian" Tapped="Jidian_OnTapped" Icon="Refresh" Content="学分绩点" Tag="学分绩点" />
+                <NavigationViewItem Name="kebiao" Tapped="Kebiao_OnTapped" Icon="Save" Content="课表" Tag="课表" />
+                <NavigationViewItem Icon="Save" Content="一键评教" Tag="一键评教" />
+            </NavigationView.MenuItems>
+            <Frame x:Name="contentFrame">
+                <StackPanel>
+                    <controls:ScrollHeader Name="Header" VerticalAlignment="Top" Mode="Fade">
+                        <Grid>
+                            <Image Source="Assets/TitleImage.jpg" Height="250" Stretch="None"></Image>
+                            <TextBlock Name="TitleText" Foreground="GhostWhite" Text="" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Microsoft YaHei UI" FontSize="72" />
+                        </Grid>
+                    </controls:ScrollHeader>
+                </StackPanel>
+            </Frame>
+        </NavigationView>
+        
+    </Grid>
+</Page>

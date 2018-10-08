@@ -5,10 +5,52 @@
     xmlns:local="using:urp"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"  
+    xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-
+        <Rectangle  Fill="{ThemeResource SystemControlAcrylicWindowBrush}"></Rectangle>
+        
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="8*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="4*"/>
+            </Grid.RowDefinitions>
+            <TextBlock  Text="用户登录" FontSize="80"  Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            <TextBox Name="UserNameBox" Grid.Row="1" VerticalAlignment="Center" Width="400" PlaceholderText="用户名"/>
+            <RelativePanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <PasswordBox x:Name="PassWordBox"   Width="400" PlaceholderText="密码"/>
+                <CheckBox x:Name="IsSaveBox" Content="记住密码" RelativePanel.AlignRightWith="PassWordBox" ></CheckBox>
+            </RelativePanel>
+            
+            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBox Name="CheckCode"  VerticalAlignment="Center" Width="250" Margin="0,0,30,0" PlaceholderText="验证码"/>
+                <Image VerticalAlignment="Center" Tapped="CheckCodeImage_OnTapped" Name="CheckCodeImage"  Height="33"></Image>
+                <ProgressRing Name="CheckCodeRing" IsActive="False"></ProgressRing>
+            </StackPanel>
+            <Button Name="LoginButton" Grid.Row="4" Background="#FF42A214" Foreground="White" Click="LoginButton_OnClick"
+                    FontFamily="Segoe Print" FontSize="22" Width="200" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Button.Resources>
+                    <SolidColorBrush x:Key="ButtonBackgroundPointerOver">#FF42A214</SolidColorBrush>
+                    <SolidColorBrush x:Key="ButtonBackgroundPressed">#FF359308</SolidColorBrush>
+                    <SolidColorBrush x:Key="ButtonForegroundPointerOver">white</SolidColorBrush>
+                    <SolidColorBrush x:Key="ButtonForegroundPressed">white</SolidColorBrush>
+                    <SolidColorBrush x:Key="ButtonBorderBrushPointerOver">#FF267600</SolidColorBrush>
+                    <SolidColorBrush x:Key="ButtonBorderBrushPressed">#FF267600</SolidColorBrush>
+                </Button.Resources>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="登录" />
+                </StackPanel>
+            </Button>
+            <ProgressRing Name="LoginRing" Grid.Row="5" IsActive="False" VerticalAlignment="Top"></ProgressRing>
+            <controls:InAppNotification Name="LoginNotification" Grid.Row="5" ></controls:InAppNotification>
+        </Grid>
     </Grid>
 </Page>

@@ -1,0 +1,22 @@
+﻿<Page
+    x:Class="urp.ChengjiPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:urp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Pivot x:Name="Pivot1" SelectionChanged="Pivot1_SelectionChanged">
+            <PivotItem Header="全部及格成绩" >
+                <WebView x:Name="WebView1" />
+            </PivotItem>
+            <PivotItem Header="不及格成绩">
+                <WebView x:Name="WebView2" ></WebView>
+            </PivotItem>
+        </Pivot>
+    </Grid>
+</Page>
