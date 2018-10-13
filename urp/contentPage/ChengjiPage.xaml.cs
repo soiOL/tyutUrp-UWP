@@ -32,13 +32,15 @@ namespace urp
         private async void Pivot1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             WebUtil webUtil = new WebUtil();
+            Ring.IsActive = true;
             switch (Pivot1.SelectedIndex)
             {
                 case 0:
                     string jigehtml = await webUtil.GetString(UrpApi.BASEURL + UrpApi.GETCHENGJI);
                     if(jigehtml.Contains("session"))
                         root.Navigate(typeof(MainPage));
-                    else if (jigehtml.Contains("wrong")) ;
+                    else if (jigehtml.Contains("wrong"))
+                        Notification.Show("获取信息失败",3000);
                     else
                     {
                         WebView1.NavigateToString(jigehtml);
@@ -55,6 +57,8 @@ namespace urp
                     }
                     break;
             }
+
+            Ring.IsActive = false;
         }
 
     }

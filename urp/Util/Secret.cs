@@ -13,8 +13,8 @@ namespace urp
         //加密
         public static String encryption(String content)
         {
-            byte[] contentBytes = System.Text.Encoding.UTF8.GetBytes(content); ;
-            byte[] keyBytes = System.Text.Encoding.UTF8.GetBytes(key);
+            byte[] contentBytes = Encoding.Default.GetBytes(content); ;
+            byte[] keyBytes = Encoding.Default.GetBytes(key);
 
             byte dkey = 0;
             foreach (byte b in keyBytes)
@@ -29,14 +29,14 @@ namespace urp
                 salt = (byte)(contentBytes[i] ^ dkey ^ salt);
                 result[i] = salt;
             }
-            return System.Text.Encoding.UTF8.GetString(result);
+            return Encoding.UTF8.GetString(result);
         }
 
         //解密
         public static String decipher(String content)
         {
-            byte[] contentBytes = System.Text.Encoding.UTF8.GetBytes(content); ;
-            byte[] keyBytes = System.Text.Encoding.UTF8.GetBytes(key);
+            byte[] contentBytes = Encoding.UTF8.GetBytes(content); ;
+            byte[] keyBytes = Encoding.UTF8.GetBytes(key);
 
             byte dkey = 0;
             foreach (byte b in keyBytes)

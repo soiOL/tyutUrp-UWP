@@ -11,11 +11,11 @@
         <Rectangle  Fill="{ThemeResource SystemControlAcrylicWindowBrush}"/>
         <NavigationView IsSettingsVisible="False" IsPaneOpen="False" AlwaysShowHeader="False" Windows10version1803:IsBackButtonVisible="Collapsed" x:Name="MainNavigation">
             <NavigationView.MenuItems> 
-                <NavigationViewItem Name="gerenxinxi" Tapped="Gerenxinxi_OnTapped" Icon="List" Content="个人信息" Tag="个人信息" />
-                <NavigationViewItem Name="chengji" Tapped="Chengji_OnTapped" Icon="Save" Content="成绩" Tag="成绩" />
-                <NavigationViewItem Name="jidian" Tapped="Jidian_OnTapped" Icon="Refresh" Content="学分绩点" Tag="学分绩点" />
-                <NavigationViewItem Name="kebiao" Tapped="Kebiao_OnTapped" Icon="Save" Content="课表" Tag="课表" />
-                <NavigationViewItem Icon="Save" Content="一键评教" Tag="一键评教" />
+                <NavigationViewItem Name="gerenxinxi" Tapped="Gerenxinxi_OnTapped" Icon="ContactInfo"  Content="个人信息" Tag="个人信息" />
+                <NavigationViewItem Name="chengji" Tapped="Chengji_OnTapped" Icon="AllApps" Content="成绩" Tag="成绩" />
+                <NavigationViewItem Name="jidian" Tapped="Jidian_OnTapped" Icon="GotoStart" Content="学分绩点" Tag="学分绩点" />
+                <NavigationViewItem Name="kebiao" Tapped="Kebiao_OnTapped" Icon="CalendarWeek" Content="课表" Tag="课表" />
+                <NavigationViewItem Icon="TouchPointer" Content="一键评教" Tag="一键评教" />
             </NavigationView.MenuItems>
             <Frame x:Name="contentFrame">
                 <StackPanel>

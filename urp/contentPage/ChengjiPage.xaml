@@ -10,6 +10,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <ProgressRing Name="Ring" IsActive="False" FontSize="200"/>
         <Pivot x:Name="Pivot1" SelectionChanged="Pivot1_SelectionChanged">
             <PivotItem Header="全部及格成绩" >
                 <WebView x:Name="WebView1" />
@@ -18,5 +19,6 @@
                 <WebView x:Name="WebView2" ></WebView>
             </PivotItem>
         </Pivot>
+        <controls:InAppNotification Name="Notification" ></controls:InAppNotification>
     </Grid>
 </Page>

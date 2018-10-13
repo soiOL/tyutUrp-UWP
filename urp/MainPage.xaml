@@ -23,7 +23,7 @@
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="4*"/>
             </Grid.RowDefinitions>
-            <TextBlock  Text="用户登录" FontSize="80"  Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            <TextBlock  Text="TYUT" FontSize="150"  Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" FontFamily="Algerian"></TextBlock>
             <TextBox Name="UserNameBox" Grid.Row="1" VerticalAlignment="Center" Width="400" PlaceholderText="用户名"/>
             <RelativePanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <PasswordBox x:Name="PassWordBox"   Width="400" PlaceholderText="密码"/>
@@ -31,7 +31,7 @@
             </RelativePanel>
             
             <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBox Name="CheckCode"  VerticalAlignment="Center" Width="250" Margin="0,0,30,0" PlaceholderText="验证码"/>
+                <TextBox Name="CheckCode"  VerticalAlignment="Center" Width="250" Margin="0,0,31,0" PlaceholderText="验证码"/>
                 <Image VerticalAlignment="Center" Tapped="CheckCodeImage_OnTapped" Name="CheckCodeImage"  Height="33"></Image>
                 <ProgressRing Name="CheckCodeRing" IsActive="False"></ProgressRing>
             </StackPanel>

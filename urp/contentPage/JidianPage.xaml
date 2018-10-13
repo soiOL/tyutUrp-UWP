@@ -10,10 +10,11 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <ProgressRing Name="Ring" IsActive="False"></ProgressRing>
         <GridView x:Name="GridView" >
             <GridView.ItemTemplate >
                 <DataTemplate>
-                    <TextBlock x:Name="InfoText" Text="{Binding values}" Width="250" Height="30"></TextBlock>
+                    <TextBlock x:Name="InfoText" Text="{Binding values}" Width="240" Height="30"></TextBlock>
                 </DataTemplate>
             </GridView.ItemTemplate>
             <GridView.Header>

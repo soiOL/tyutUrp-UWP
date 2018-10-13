@@ -35,6 +35,7 @@ namespace urp.contentPage
 
         private async Task GetUserInfo()
         {
+            Ring.IsActive = true;
             WebUtil webUtil = new WebUtil();
             String result = await webUtil.GetString(UrpApi.BASEURL + UrpApi.GETUSERINFO);
             if (result.Equals("session"))
@@ -43,7 +44,7 @@ namespace urp.contentPage
             }
             else if (result.Equals("wrong"))
             {
-                Notification.Show("获取信息失败");
+                Notification.Show("获取信息失败",3000);
             }
             else
             {
@@ -53,13 +54,16 @@ namespace urp.contentPage
                 {
                     string value = infoD.Key + "  " + infoD.Value;
 
-                    if (!String.IsNullOrEmpty(value))
+                    if (!string.IsNullOrEmpty(value))
                     {
                         list.Add(new InfoStruct() { values = value });
                     }
                 }
+                list.RemoveAt(0);
                 GridView.ItemsSource = list;
             }
+
+            Ring.IsActive = false;
         }
     }
 

@@ -89,19 +89,19 @@ namespace urp
                 {
                     if (result.Equals("checkError"))
                     {
-                        LoginNotification.Show("验证码错误");
+                        LoginNotification.Show("验证码错误",3000);
                     }
                     else if (result.Equals("userNameError"))
                     {
-                        LoginNotification.Show("用户名错误");
+                        LoginNotification.Show("用户名错误",3000);
                     }
                     else if (result.Equals("passWordError"))
                     {
-                        LoginNotification.Show("密码错误");
+                        LoginNotification.Show("密码错误",3000);
                     }
                     else
                     {
-                        LoginNotification.Show("服务端错误");
+                        LoginNotification.Show("服务端错误",3000);
                     }
                     await getCheckCode();
                 }
