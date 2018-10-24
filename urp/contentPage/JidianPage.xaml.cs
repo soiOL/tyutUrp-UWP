@@ -45,47 +45,55 @@ namespace urp
             Ring.IsActive = true;
             WebUtil webUtil = new WebUtil();
             StuUser user = new StuUser();
-            user.userName = (string) localSettings.Values["userName"];
-            user.passWord = (string) localSettings.Values["passWord"];
-            user.checkCode = " ";
-            String json = JsonConvert.SerializeObject(user);
-            List<KeyValuePair<string, string>> paramList = new List<KeyValuePair<string, string>>();
-            paramList.Add(new KeyValuePair<string, string>("param", json));
-            String result = await webUtil.PostString(UrpApi.BASEURL + UrpApi.GETJIDIAN,paramList);
-            if (result.Equals("session"))
+            try
             {
-                root.Navigate(typeof(MainPage));
+                user.userName = (string)localSettings.Values["userName"];
+                user.passWord = (string)localSettings.Values["passWord"];
+                user.checkCode = " ";
+                String json = JsonConvert.SerializeObject(user);
+                List<KeyValuePair<string, string>> paramList = new List<KeyValuePair<string, string>>();
+                paramList.Add(new KeyValuePair<string, string>("param", json));
+                String result = await webUtil.PostString(UrpApi.BASEURL + UrpApi.GETJIDIAN, paramList);
+                if (result.Equals("session"))
+                {
+                    root.Navigate(typeof(MainPage),1);
+                }
+                else if (result.Equals("wrong"))
+                {
+                    Notification.Show("获取信息失败，请重试", 3000);
+                }
+                else
+                {
+                    var jidianStruct = JsonConvert.DeserializeObject<JidianStruct>(result);
+                    List<JidianInfo> strList = new List<JidianInfo>();
+                    strList.Add(new JidianInfo() { values = "学号：" + jidianStruct.xh });
+                    strList.Add(new JidianInfo() { values = "姓名：" + jidianStruct.xm });
+                    strList.Add(new JidianInfo() { values = "班级：" + jidianStruct.bjh });
+                    strList.Add(new JidianInfo() { values = "要求总学分：" + jidianStruct.zxf });
+                    strList.Add(new JidianInfo() { values = "已修课程学分：" + jidianStruct.yxzxf });
+                    strList.Add(new JidianInfo() { values = "已修自主实践学分：" + jidianStruct.yxzzsjxf });
+                    strList.Add(new JidianInfo() { values = "曾不及格学分：" + jidianStruct.cbjgxf });
+                    strList.Add(new JidianInfo() { values = "尚不及格学分：" + jidianStruct.sbjgxf });
+                    strList.Add(new JidianInfo() { values = "GPA：" + jidianStruct.pjxfjd });
+                    strList.Add(new JidianInfo() { values = "GPA班级排名：" + jidianStruct.gpabjpm });
+                    strList.Add(new JidianInfo() { values = "GPA专业排名：" + jidianStruct.gpazypm });
+                    strList.Add(new JidianInfo() { values = "GPA大类排名：" + jidianStruct.gpadlpm });
+                    strList.Add(new JidianInfo() { values = "加权学分成绩：" + jidianStruct.jqxfcj });
+                    strList.Add(new JidianInfo() { values = "加权班级排名：" + jidianStruct.jqbjpm });
+                    strList.Add(new JidianInfo() { values = "加权专业排名：" + jidianStruct.jqzypm });
+                    strList.Add(new JidianInfo() { values = "平均成绩：" + jidianStruct.pjcj });
+                    strList.Add(new JidianInfo() { values = "平均成绩班级排名：" + jidianStruct.pjcjbjpm });
+                    strList.Add(new JidianInfo() { values = "平均成绩专业排名：" + jidianStruct.pjcjzypm });
+                    strList.Add(new JidianInfo() { values = "统计时间：" + jidianStruct.tjsj });
+                    GridView.ItemsSource = strList;
+                }
             }
-            else if (result.Equals("wrong"))
+            catch (Exception e)
             {
-                Notification.Show("获取信息失败",3000);
+                Notification.Show("获取信息失败，请重试", 3000);
+                Console.WriteLine(e);
             }
-            else
-            {
-                var jidianStruct = JsonConvert.DeserializeObject<JidianStruct>(result);
-                List<JidianInfo> strList = new List<JidianInfo>();
-                strList.Add(new JidianInfo(){values = "学号：" + jidianStruct.xh});
-                strList.Add(new JidianInfo() { values = "姓名：" + jidianStruct.xm});
-                strList.Add(new JidianInfo() { values = "班级：" + jidianStruct.bjh});
-                strList.Add(new JidianInfo() { values = "要求总学分：" + jidianStruct.zxf});
-                strList.Add(new JidianInfo() { values = "已修课程学分：" + jidianStruct.yxzxf});
-                strList.Add(new JidianInfo() { values = "已修自主实践学分：" + jidianStruct.yxzzsjxf});
-                strList.Add(new JidianInfo() { values = "曾不及格学分：" + jidianStruct.cbjgxf});
-                strList.Add(new JidianInfo() { values = "尚不及格学分：" + jidianStruct.sbjgxf});
-                strList.Add(new JidianInfo() { values = "GPA：" + jidianStruct.pjxfjd});
-                strList.Add(new JidianInfo() { values = "GPA班级排名：" + jidianStruct.gpabjpm});
-                strList.Add(new JidianInfo() { values = "GPA专业排名：" + jidianStruct.gpazypm });
-                strList.Add(new JidianInfo() { values = "GPA大类排名：" + jidianStruct.gpadlpm });
-                strList.Add(new JidianInfo() { values = "加权学分成绩：" + jidianStruct.jqxfcj });
-                strList.Add(new JidianInfo() { values = "加权班级排名：" + jidianStruct.jqbjpm });
-                strList.Add(new JidianInfo() { values = "加权专业排名：" + jidianStruct.jqzypm });
-                strList.Add(new JidianInfo() { values = "平均成绩：" + jidianStruct.pjcj });
-                strList.Add(new JidianInfo() { values = "平均成绩班级排名：" + jidianStruct.pjcjbjpm });
-                strList.Add(new JidianInfo() { values = "平均成绩专业排名：" + jidianStruct.pjcjzypm });
-                strList.Add(new JidianInfo() { values = "统计时间：" + jidianStruct.tjsj });
-                GridView.ItemsSource = strList;
-            }
-
+            
             Ring.IsActive = false;
         }
 

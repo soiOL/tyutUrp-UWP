@@ -33,6 +33,6 @@
                 </Style>
             </GridView.ItemContainerStyle>
         </GridView>
-        <controls:InAppNotification Name="Notification" ></controls:InAppNotification>
+        <controls:InAppNotification x:Name="Notification" ></controls:InAppNotification>
     </Grid>
 </Page>

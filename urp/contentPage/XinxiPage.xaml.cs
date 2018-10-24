@@ -37,32 +37,39 @@ namespace urp.contentPage
         {
             Ring.IsActive = true;
             WebUtil webUtil = new WebUtil();
-            String result = await webUtil.GetString(UrpApi.BASEURL + UrpApi.GETUSERINFO);
-            if (result.Equals("session"))
+            try
             {
-                root.Navigate(typeof(MainPage));
-            }
-            else if (result.Equals("wrong"))
-            {
-                Notification.Show("获取信息失败",3000);
-            }
-            else
-            {
-                var jsonStruct = JsonConvert.DeserializeObject<Dictionary<String, String>>(result);
-                List<InfoStruct> list = new List<InfoStruct>();
-                foreach (var infoD in jsonStruct)
+                String result = await webUtil.GetString(UrpApi.BASEURL + UrpApi.GETUSERINFO);
+                if (result.Equals("session"))
                 {
-                    string value = infoD.Key + "  " + infoD.Value;
-
-                    if (!string.IsNullOrEmpty(value))
-                    {
-                        list.Add(new InfoStruct() { values = value });
-                    }
+                    root.Navigate(typeof(MainPage),1);
                 }
-                list.RemoveAt(0);
-                GridView.ItemsSource = list;
+                else if (result.Equals("wrong"))
+                {
+                    Notification.Show("获取信息失败，请重试", 3000);
+                }
+                else
+                {
+                    var jsonStruct = JsonConvert.DeserializeObject<Dictionary<String, String>>(result);
+                    List<InfoStruct> list = new List<InfoStruct>();
+                    foreach (var infoD in jsonStruct)
+                    {
+                        if (!string.IsNullOrEmpty(infoD.Value))
+                        {
+                            string value = infoD.Key + "  " + infoD.Value;
+                            list.Add(new InfoStruct() { values = value });
+                        }
+                    }
+                    list.RemoveAt(0);
+                    GridView.ItemsSource = list;
+                }
             }
-
+            catch (Exception e)
+            {
+                Notification.Show("获取信息失败，请重试", 3000);
+                Console.WriteLine(e);
+            }
+            
             Ring.IsActive = false;
         }
     }

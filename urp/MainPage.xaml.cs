@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Toolkit.Extensions;
+using Microsoft.Toolkit.Uwp.UI.Extensions;
 using Newtonsoft.Json;
 using urp.Struct;
 using urp.Util;
@@ -47,19 +48,19 @@ namespace urp
             user.checkCode = CheckCode.Text;
             if (string.IsNullOrEmpty(user.userName) || !user.userName.IsNumeric())
             {
-                LoginNotification.Show("请输入用户名");
+                LoginNotification.Show("请输入正确的用户名",2000);
                 return;
             }
 
             if (string.IsNullOrEmpty(user.passWord))
             {
-                LoginNotification.Show("请输入密码");
+                LoginNotification.Show("请输入密码",2000);
                 return;
             }
              
             if (string.IsNullOrEmpty(user.checkCode))
             {
-                LoginNotification.Show("请输入验证码");
+                LoginNotification.Show("请输入验证码",2000);
                 return;
             }
             LoginRing.IsActive = true;
@@ -101,14 +102,15 @@ namespace urp
                     }
                     else
                     {
-                        LoginNotification.Show("服务端错误",3000);
+                        LoginNotification.Show("连接超时，请重试",3000);
                     }
                     await getCheckCode();
                 }
             }
-            catch (System.Runtime.InteropServices.COMException exception)
+            catch (Exception exception)
             {
-                LoginNotification.Show("无法连接网络");
+                Console.WriteLine(exception);
+                LoginNotification.Show("网络错误",3000);
             }
             finally
             {
@@ -121,7 +123,10 @@ namespace urp
         //页面打开时
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-           
+            if (e.Parameter != null)
+            {
+                LoginNotification.Show("登陆过期，请重新登陆",3000);
+            }
             if (localSettings.Values["isSave"] != null)
             {
                 bool isSave = (bool)localSettings.Values["isSave"];
@@ -155,9 +160,10 @@ namespace urp
                 BitmapImage bitmapImage = await webUtil.GetImage(new Uri(UrpApi.BASEURL+UrpApi.GETCHECKCODE));
                 CheckCodeImage.Source = bitmapImage;
             }
-            catch (System.Runtime.InteropServices.COMException exception)
+            catch (Exception exception)
             {
-                LoginNotification.Show("无法连接网络");
+                Console.WriteLine(exception);
+                LoginNotification.Show("获取验证码失败，请重试",3000);
             }
             finally
             {

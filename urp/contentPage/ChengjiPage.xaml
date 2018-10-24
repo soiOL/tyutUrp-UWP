@@ -19,6 +19,6 @@
                 <WebView x:Name="WebView2" ></WebView>
             </PivotItem>
         </Pivot>
-        <controls:InAppNotification Name="Notification" ></controls:InAppNotification>
+        <controls:InAppNotification x:Name="Notification" ></controls:InAppNotification>
     </Grid>
 </Page>

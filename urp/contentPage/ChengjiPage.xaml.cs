@@ -24,6 +24,8 @@ namespace urp
     public sealed partial class ChengjiPage : Page
     {
         private Frame root = Window.Current.Content as Frame;
+        private bool isFirst = true;
+        private bool isFirst2 = true;
         public ChengjiPage()
         {
             this.InitializeComponent();
@@ -33,31 +35,50 @@ namespace urp
         {
             WebUtil webUtil = new WebUtil();
             Ring.IsActive = true;
-            switch (Pivot1.SelectedIndex)
+            try
             {
-                case 0:
-                    string jigehtml = await webUtil.GetString(UrpApi.BASEURL + UrpApi.GETCHENGJI);
-                    if(jigehtml.Contains("session"))
-                        root.Navigate(typeof(MainPage));
-                    else if (jigehtml.Contains("wrong"))
-                        Notification.Show("获取信息失败",3000);
-                    else
-                    {
-                        WebView1.NavigateToString(jigehtml);
-                    }
-                    break;
-                case 1:
-                    jigehtml = await webUtil.GetString(UrpApi.BASEURL + UrpApi.GETNOCHENGJI);
-                    if (jigehtml.Contains("session"))
-                        root.Navigate(typeof(MainPage));
-                    else if (jigehtml.Contains("wrong")) ;
-                    else
-                    {
-                        WebView2.NavigateToString(jigehtml);
-                    }
-                    break;
-            }
+                switch (Pivot1.SelectedIndex)
+                {
+                    case 0:
+                        if (isFirst)
+                        {
+                            string jigehtml = await webUtil.GetString(UrpApi.BASEURL + UrpApi.GETCHENGJI);
+                            if (jigehtml.Contains("session"))
+                                root.Navigate(typeof(MainPage), 1);
+                            else if (jigehtml.Contains("wrong"))
+                                Notification.Show("获取信息失败，请重试", 3000);
+                            else
+                            {
+                                WebView1.NavigateToString(jigehtml);
+                            }
 
+                            isFirst = false;
+                        }
+                        break;
+                    case 1:
+                        if (isFirst2)
+                        {
+                            string bujigehtml = await webUtil.GetString(UrpApi.BASEURL + UrpApi.GETNOCHENGJI);
+                            if (bujigehtml.Contains("session"))
+                                root.Navigate(typeof(MainPage), 1);
+                            else if (bujigehtml.Contains("wrong"))
+                                Notification.Show("获取信息失败，请重试", 3000);
+                            else
+                            {
+                                WebView2.NavigateToString(bujigehtml);
+                            }
+
+                            isFirst2 = false;
+                        }
+                        break;
+                }
+            }
+            catch (Exception exception)
+            {
+                Notification.Show("获取信息失败，请重试", 3000);
+                Console.WriteLine(exception);
+            }
+            
             Ring.IsActive = false;
         }
 

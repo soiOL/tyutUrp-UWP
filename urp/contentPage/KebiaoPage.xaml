@@ -5,10 +5,24 @@
     xmlns:local="using:urp"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        
+        <ProgressRing Name="Ring" IsActive="False"></ProgressRing>
+        <controls:DataGrid x:Name="KebiaoGrid" AutoGenerateColumns="False" IsReadOnly="True" AlternatingRowBackground="Honeydew"  CanUserResizeColumns="False" >
+            <controls:DataGrid.Columns >
+                <controls:DataGridTextColumn Header="" Binding="{Binding Count}"/>
+                <controls:DataGridTextColumn Header="星期一" Binding="{Binding Mon}"/>
+                <controls:DataGridTextColumn Header="星期二" Binding="{Binding Tue}"/>
+                <controls:DataGridTextColumn Header="星期三" Binding="{Binding Wed}"/>
+                <controls:DataGridTextColumn Header="星期四" Binding="{Binding Thu}"/>
+                <controls:DataGridTextColumn Header="星期五" Binding="{Binding Fri}"/>
+                <controls:DataGridTextColumn Header="星期六" Binding="{Binding Sat}"/>
+                <controls:DataGridTextColumn Header="星期日" Binding="{Binding Sun}"/>
+            </controls:DataGrid.Columns>
+        </controls:DataGrid>
+        <controls:InAppNotification x:Name="Notification" ></controls:InAppNotification>
     </Grid>
 </Page>

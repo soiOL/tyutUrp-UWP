@@ -15,7 +15,11 @@
                 <NavigationViewItem Name="chengji" Tapped="Chengji_OnTapped" Icon="AllApps" Content="成绩" Tag="成绩" />
                 <NavigationViewItem Name="jidian" Tapped="Jidian_OnTapped" Icon="GotoStart" Content="学分绩点" Tag="学分绩点" />
                 <NavigationViewItem Name="kebiao" Tapped="Kebiao_OnTapped" Icon="CalendarWeek" Content="课表" Tag="课表" />
-                <NavigationViewItem Icon="TouchPointer" Content="一键评教" Tag="一键评教" />
+                <NavigationViewItem Name="About" Tapped="About_OnTapped" Icon="Like" Content="关于"/>
+                <!--<NavigationViewItem Icon="TouchPointer" Content="一键评教" Tag="一键评教" />-->
+                <NavigationViewItemSeparator/>
+                <NavigationViewItem  Name="dengchu" Icon="Cancel" Tapped="Dengchu_OnTapped" Content="登出" Tag="登出" />
+                
             </NavigationView.MenuItems>
             <Frame x:Name="contentFrame">
                 <StackPanel>
