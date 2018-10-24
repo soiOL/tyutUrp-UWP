@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using HtmlAgilityPack;
 using Microsoft.Toolkit.Extensions;
 using Microsoft.Toolkit.Uwp.UI.Extensions;
 using Newtonsoft.Json;
@@ -67,12 +68,15 @@ namespace urp
             LoginButton.IsEnabled = false;
             try
             {
-                string LoginJson = JsonConvert.SerializeObject(user);
-                //LoginJson = Secret.encryption(LoginJson);
                 List<KeyValuePair<string, string>> paramList = new List<KeyValuePair<string, string>>();
-                paramList.Add(new KeyValuePair<string, string>("param", LoginJson));
-                String result = await webUtil.PostString(UrpApi.BASEURL+UrpApi.LOGIN, paramList);
-                if (result.Equals("success"))
+                paramList.Add(new KeyValuePair<string, string>("zjh", user.userName));
+                paramList.Add(new KeyValuePair<string, string>("mm", user.passWord));
+                paramList.Add(new KeyValuePair<string, string>("v_yzm", user.checkCode));
+                string result = await webUtil.PostString(UrpApi2.URL+UrpApi2.URL_LOGIN, paramList);
+                var doc = new HtmlDocument();
+                doc.LoadHtml(result);
+                result = doc.DocumentNode.SelectSingleNode("//title").InnerText;
+                if (result.Contains("学分制综合教务"))
                 {
                     localSettings.Values["userName"] = user.userName;
                     localSettings.Values["passWord"] = user.passWord;
@@ -88,15 +92,16 @@ namespace urp
                 }
                 else
                 {
-                    if (result.Equals("checkError"))
+                    result = doc.DocumentNode.SelectSingleNode("//td[@class='errorTop']").InnerText;
+                    if (result.Contains("验证码"))
                     {
                         LoginNotification.Show("验证码错误",3000);
                     }
-                    else if (result.Equals("userNameError"))
+                    else if (result.Contains("证件号"))
                     {
                         LoginNotification.Show("用户名错误",3000);
                     }
-                    else if (result.Equals("passWordError"))
+                    else if (result.Contains("密码"))
                     {
                         LoginNotification.Show("密码错误",3000);
                     }
@@ -157,7 +162,7 @@ namespace urp
             try
             {
                 CheckCodeRing.IsActive = true;
-                BitmapImage bitmapImage = await webUtil.GetImage(new Uri(UrpApi.BASEURL+UrpApi.GETCHECKCODE));
+                BitmapImage bitmapImage = await webUtil.GetImage(new Uri(UrpApi2.URL+UrpApi2.URL_YZM));
                 CheckCodeImage.Source = bitmapImage;
             }
             catch (Exception exception)

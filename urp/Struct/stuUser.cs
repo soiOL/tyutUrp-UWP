@@ -8,8 +8,8 @@ namespace urp.Struct
 {
     class StuUser
     {
-        public String userName { get; set; }
-        public String passWord { get; set; }
-        public String checkCode { get; set; }
+        public string userName { get; set; }
+        public string passWord { get; set; }
+        public string checkCode { get; set; }
     }
 }

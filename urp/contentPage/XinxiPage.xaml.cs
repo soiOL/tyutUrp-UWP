@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using HtmlAgilityPack;
 using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
 using Newtonsoft.Json;
 using urp.Struct;
@@ -21,6 +22,9 @@ namespace urp.contentPage
     /// </summary>
     public sealed partial class XinxiPage : Page
     {
+        private static readonly int SUCCESS = 1;
+        private static readonly int TIMEOUT = 0;
+        private static readonly int FAIL = -1;
         private Frame root = Window.Current.Content as Frame;
         public XinxiPage()
         {
@@ -36,38 +40,27 @@ namespace urp.contentPage
         private async Task GetUserInfo()
         {
             Ring.IsActive = true;
-            WebUtil webUtil = new WebUtil();
-            try
+            var urpUtil = new UrpUtil();
+            var map = new Dictionary<string, string>();
+            int result = await urpUtil.GetUserInfo(map);
+            if (result == SUCCESS)
             {
-                String result = await webUtil.GetString(UrpApi.BASEURL + UrpApi.GETUSERINFO);
-                if (result.Equals("session"))
+                List<InfoStruct> list = new List<InfoStruct>();
+                foreach (var infoD in map)
                 {
-                    root.Navigate(typeof(MainPage),1);
+                    string info = " " + infoD.Key + "  " + infoD.Value;
+                    list.Add(new InfoStruct() { values = info });
                 }
-                else if (result.Equals("wrong"))
-                {
-                    Notification.Show("获取信息失败，请重试", 3000);
-                }
-                else
-                {
-                    var jsonStruct = JsonConvert.DeserializeObject<Dictionary<String, String>>(result);
-                    List<InfoStruct> list = new List<InfoStruct>();
-                    foreach (var infoD in jsonStruct)
-                    {
-                        if (!string.IsNullOrEmpty(infoD.Value))
-                        {
-                            string value = infoD.Key + "  " + infoD.Value;
-                            list.Add(new InfoStruct() { values = value });
-                        }
-                    }
-                    list.RemoveAt(0);
-                    GridView.ItemsSource = list;
-                }
+                list.RemoveAt(0);
+                GridView.ItemsSource = list;
             }
-            catch (Exception e)
+            else if (result == FAIL)
             {
                 Notification.Show("获取信息失败，请重试", 3000);
-                Console.WriteLine(e);
+            }
+            else
+            {
+                root.Navigate(typeof(MainPage),1);
             }
             
             Ring.IsActive = false;

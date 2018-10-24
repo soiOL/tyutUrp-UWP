@@ -44,7 +44,18 @@ namespace urp
         //页面打开时
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
-            await getKebiao();
+            Ring.IsActive = true;
+            WebUtil webUtil = new WebUtil();
+            string result = await webUtil.GetString(UrpApi2.URL + UrpApi2.URL_KB);
+            if (result.Contains("学生选课结果"))
+            {
+                WebView.Navigate(new Uri(UrpApi2.URL + UrpApi2.URL_KB));
+            }
+            else
+            {
+                root.Navigate(typeof(MainPage), 1);
+            }
+            //await getKebiao();
         }
 
         private async Task getKebiao()
@@ -52,7 +63,7 @@ namespace urp
             WebUtil webUtil = new WebUtil();
             try
             {
-                String result = await webUtil.GetString(UrpApi.BASEURL + UrpApi.GETKEBIAO);
+                string result = await webUtil.GetString(UrpApi2.URL + UrpApi2.URL_KB);
                 if (result.Equals("session"))
                 {
                     root.Navigate(typeof(MainPage),1);
@@ -88,7 +99,7 @@ namespace urp
                         });
                     }
 
-                    KebiaoGrid.ItemsSource = kebiaoList;
+                    //KebiaoGrid.ItemsSource = kebiaoList;
                 }
             }
             catch (Exception e)

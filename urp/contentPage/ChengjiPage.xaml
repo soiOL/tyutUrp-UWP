@@ -12,11 +12,13 @@
     <Grid>
         <ProgressRing Name="Ring" IsActive="False" FontSize="200"/>
         <Pivot x:Name="Pivot1" SelectionChanged="Pivot1_SelectionChanged">
-            <PivotItem Header="全部及格成绩" >
-                <WebView x:Name="WebView1" />
+            <PivotItem >
+                <PivotItem.Header >全部及格成绩</PivotItem.Header>
+                <WebView x:Name="WebView1" DefaultBackgroundColor="Transparent" />
             </PivotItem>
-            <PivotItem Header="不及格成绩">
-                <WebView x:Name="WebView2" ></WebView>
+            <PivotItem>
+                <PivotItem.Header >不及格成绩</PivotItem.Header>
+                <WebView x:Name="WebView2" DefaultBackgroundColor="Transparent" ></WebView>
             </PivotItem>
         </Pivot>
         <controls:InAppNotification x:Name="Notification" ></controls:InAppNotification>

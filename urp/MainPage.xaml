@@ -33,7 +33,7 @@
             
             <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBox Name="CheckCode"  VerticalAlignment="Center" Width="260" Margin="0,0,20,0" PlaceholderText="验证码"/>
-                <Image VerticalAlignment="Center" Tapped="CheckCodeImage_OnTapped" Name="CheckCodeImage"  Height="33"></Image>
+                <Image VerticalAlignment="Center" Source="Assets/yzm.png" Tapped="CheckCodeImage_OnTapped" Name="CheckCodeImage"  Height="33"></Image>
                 <ProgressRing Name="CheckCodeRing" IsActive="False"></ProgressRing>
             </StackPanel>
             <Button Name="LoginButton" Grid.Row="4" Background="#FF42A214" Foreground="White" Click="LoginButton_OnClick"

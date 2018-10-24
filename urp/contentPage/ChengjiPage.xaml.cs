@@ -26,14 +26,16 @@ namespace urp
         private Frame root = Window.Current.Content as Frame;
         private bool isFirst = true;
         private bool isFirst2 = true;
+        private UrpUtil urpUtil;
         public ChengjiPage()
         {
             this.InitializeComponent();
+            urpUtil = new UrpUtil();
         }
 
         private async void Pivot1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            WebUtil webUtil = new WebUtil();
+            
             Ring.IsActive = true;
             try
             {
@@ -42,33 +44,27 @@ namespace urp
                     case 0:
                         if (isFirst)
                         {
-                            string jigehtml = await webUtil.GetString(UrpApi.BASEURL + UrpApi.GETCHENGJI);
-                            if (jigehtml.Contains("session"))
+                            string jigehtml = await urpUtil.getGoodScore();
+                            if (jigehtml.Equals("SESSION"))
                                 root.Navigate(typeof(MainPage), 1);
-                            else if (jigehtml.Contains("wrong"))
-                                Notification.Show("获取信息失败，请重试", 3000);
                             else
                             {
                                 WebView1.NavigateToString(jigehtml);
+                                isFirst = false;
                             }
-
-                            isFirst = false;
                         }
                         break;
                     case 1:
                         if (isFirst2)
                         {
-                            string bujigehtml = await webUtil.GetString(UrpApi.BASEURL + UrpApi.GETNOCHENGJI);
-                            if (bujigehtml.Contains("session"))
+                            string bujigehtml = await urpUtil.getBadScore();
+                            if (bujigehtml.Equals("SESSION"))
                                 root.Navigate(typeof(MainPage), 1);
-                            else if (bujigehtml.Contains("wrong"))
-                                Notification.Show("获取信息失败，请重试", 3000);
                             else
                             {
                                 WebView2.NavigateToString(bujigehtml);
+                                isFirst2 = false;
                             }
-
-                            isFirst2 = false;
                         }
                         break;
                 }

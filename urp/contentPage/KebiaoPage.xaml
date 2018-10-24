@@ -11,7 +11,8 @@
 
     <Grid>
         <ProgressRing Name="Ring" IsActive="False"></ProgressRing>
-        <controls:DataGrid x:Name="KebiaoGrid" AutoGenerateColumns="False" IsReadOnly="True" AlternatingRowBackground="Honeydew"  CanUserResizeColumns="False" >
+        <WebView Name="WebView"></WebView>
+        <!--<controls:DataGrid x:Name="KebiaoGrid" AutoGenerateColumns="False" IsReadOnly="True" AlternatingRowBackground="Honeydew"  CanUserResizeColumns="False" >
             <controls:DataGrid.Columns >
                 <controls:DataGridTextColumn Header="" Binding="{Binding Count}"/>
                 <controls:DataGridTextColumn Header="星期一" Binding="{Binding Mon}"/>
@@ -22,7 +23,7 @@
                 <controls:DataGridTextColumn Header="星期六" Binding="{Binding Sat}"/>
                 <controls:DataGridTextColumn Header="星期日" Binding="{Binding Sun}"/>
             </controls:DataGrid.Columns>
-        </controls:DataGrid>
+        </controls:DataGrid>-->
         <controls:InAppNotification x:Name="Notification" ></controls:InAppNotification>
     </Grid>
 </Page>

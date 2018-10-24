@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using HtmlAgilityPack;
 using Newtonsoft.Json;
 using urp.contentPage;
 using urp.Util;
@@ -27,6 +28,9 @@ namespace urp
     /// </summary>
     public sealed partial class MainView : Page
     {
+        private static readonly int SUCCESS = 1;
+        private static readonly int TIMEOUT = 0;
+        private static readonly int FAIL = -1;
         private Frame root = Window.Current.Content as Frame;
         public MainView()
         {
@@ -41,34 +45,23 @@ namespace urp
 
         private async Task GetTitleText()
         {
-            WebUtil webUtil = new WebUtil();
-            try
+            var urpUtil = new UrpUtil();
+            var map = new Dictionary<string, string>();
+            int result = await urpUtil.GetUserInfo(map);
+            if (result == SUCCESS)
             {
-                String result = await webUtil.GetString(UrpApi.BASEURL + UrpApi.GETUSERINFO);
-                if (result.Equals("session"))
-                {
-                    root.Navigate(typeof(MainPage));
-                }
-                else if (result.Equals("wrong"))
-                {
-                    MainNavigation.Header = "你好，同学";
-                    TitleText.Text = "你好，同学";
-                }
-                else
-                {
-                    var jsonStruct = JsonConvert.DeserializeObject<Dictionary<String, String>>(result);
-                    MainNavigation.Header = "你好，" + jsonStruct["姓名:"];
-                    TitleText.Text = "你好，" + jsonStruct["姓名:"];
-                }
+                MainNavigation.Header = "你好，" + map["姓名:"];
+                TitleText.Text = "你好，" + map["姓名:"];
             }
-            catch (Exception e)
+            else if (result == FAIL)
             {
-                Console.WriteLine(e);
                 MainNavigation.Header = "你好，同学";
                 TitleText.Text = "你好，同学";
             }
-            
-            
+            else
+            {
+                root.Navigate(typeof(MainPage));
+            }
         }
 
         private void Gerenxinxi_OnTapped(object sender, TappedRoutedEventArgs e)
