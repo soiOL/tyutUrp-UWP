@@ -21,9 +21,18 @@ namespace urp.Util
 
         //get请求获取字符串
         public async Task<string> GetString(string uri)
-        {                                                                                                                     
-            var response = await httpClient.GetStringAsync(new Uri(uri));
-            return response;
+        {
+            try
+            {
+                var response = await httpClient.GetStringAsync(new Uri(uri));
+                return response;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }                                                                                          
+            
         }
         
 
@@ -31,26 +40,43 @@ namespace urp.Util
         //get请求获取网络图片
         public async Task<BitmapImage> GetImage(Uri uri)
         {
-            var response = await httpClient.GetAsync(uri);
-            var buffer = response.Content.ReadAsBufferAsync().GetResults();
-            BitmapImage img = new BitmapImage();
-            using (IRandomAccessStream stream = new InMemoryRandomAccessStream())
+            try
             {
-                await stream.WriteAsync(buffer);
-                stream.Seek(0);
-                await img.SetSourceAsync(stream);
-                stream.Dispose();   
-                return img;
+                var response = await httpClient.GetAsync(uri);
+                var buffer = response.Content.ReadAsBufferAsync().GetResults();
+                BitmapImage img = new BitmapImage();
+                using (IRandomAccessStream stream = new InMemoryRandomAccessStream())
+                {
+                    await stream.WriteAsync(buffer);
+                    stream.Seek(0);
+                    await img.SetSourceAsync(stream);
+                    stream.Dispose();
+                    return img;
+                }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            
         }
 
         //post请求获取字符串
         public async Task<string> PostString(string uri, List<KeyValuePair<string, string>> paramList)
         {
+            try
+            {
+                var response = await httpClient.PostAsync(new Uri(uri), new HttpFormUrlEncodedContent(paramList));
+                var result = await response.Content.ReadAsStringAsync();
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }    
             
-            var response = await httpClient.PostAsync(new Uri(uri),new HttpFormUrlEncodedContent(paramList) );
-            var result = await response.Content.ReadAsStringAsync();
-            return result;
         }
     }
 }

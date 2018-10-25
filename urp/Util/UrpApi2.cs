@@ -10,8 +10,10 @@ namespace urp.Util
     {
         public static string JWCURL = "http://219.226.101.61/jiawu3.html";
         //主url
-        public static string URL = "https://urp.tyut.risid.com/";
-        public static string STUURL = "https://stu.tyut.risid.com/";
+        public static string URL = "http://202.207.247.49/";
+        public static string STUURL = "http://202.207.247.60/";
+        public static string DEFAULTURL = "http://202.207.247.49/";
+        public static string DEFAULTSTUURL = "http://202.207.247.60/";
         //    public static String URL3 = "http://202.207.247.44:8065/";
         //    public static String URL4 = "http://202.207.247.44:8069/";
         //login

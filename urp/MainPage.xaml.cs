@@ -66,6 +66,7 @@ namespace urp
             }
             LoginRing.IsActive = true;
             LoginButton.IsEnabled = false;
+            Setting.IsEnabled = false;
             try
             {
                 List<KeyValuePair<string, string>> paramList = new List<KeyValuePair<string, string>>();
@@ -121,14 +122,14 @@ namespace urp
             {
                 LoginRing.IsActive = false;
                 LoginButton.IsEnabled = true;
-                
+                Setting.IsEnabled = true;
             }
         }
 
         //页面打开时
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (e.Parameter != null)
+            if (e.Parameter != null && e.Parameter.ToString().Equals("1"))
             {
                 LoginNotification.Show("登陆过期，请重新登陆",3000);
             }
@@ -146,6 +147,19 @@ namespace urp
                     UserNameBox.Text = (string)localSettings.Values["userName"];
                 }
             }
+            if (localSettings.Values["URL"] != null && localSettings.Values["isDefaultUrl"] != null)
+            {
+                if (!(bool) localSettings.Values["isDefaultUrl"])
+                {
+                    UrpApi2.URL = (string)localSettings.Values["URL"];
+                    UrpApi2.STUURL = (string)localSettings.Values["STUURL"];
+                    ChangedButton.IsChecked = true;
+                    UrpBox.IsEnabled = true;
+                    StuBox.IsEnabled = true;
+                }
+                UrpBox.Text = (string)localSettings.Values["URL"];
+                StuBox.Text = (string)localSettings.Values["STUURL"];
+            }
             await getCheckCode();
         }
 
@@ -161,6 +175,7 @@ namespace urp
         {
             try
             {
+                Setting.IsEnabled = false;
                 CheckCodeRing.IsActive = true;
                 BitmapImage bitmapImage = await webUtil.GetImage(new Uri(UrpApi2.URL+UrpApi2.URL_YZM));
                 CheckCodeImage.Source = bitmapImage;
@@ -172,8 +187,64 @@ namespace urp
             }
             finally
             {
+                Setting.IsEnabled = true;
                 CheckCodeRing.IsActive = false;
             }
+        }
+
+        //打开弹窗
+        private async void Setting_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            await ContentDialog.ShowAsync();
+        }
+
+        //点击弹窗的保存按钮
+        private async void ContentDialog_OnPrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            string urpString = UrpApi2.DEFAULTURL;
+            string stuString = UrpApi2.DEFAULTSTUURL;
+            if (DefaultButton.IsChecked == true)
+            {
+                UrpApi2.URL = UrpApi2.DEFAULTURL;
+                UrpApi2.STUURL = UrpApi2.DEFAULTSTUURL;
+                localSettings.Values["isDefaultUrl"] = true;
+            }
+            else
+            {
+                urpString = UrpBox.Text;
+                if (!urpString.EndsWith("/"))
+                {
+                    urpString = urpString + "/";
+                }
+                stuString = StuBox.Text;
+                if (!stuString.EndsWith("/"))
+                {
+                    stuString = stuString + "/";
+                }
+                UrpApi2.URL = urpString;
+                UrpApi2.STUURL = stuString;
+                localSettings.Values["URL"] = urpString;
+                localSettings.Values["STUURL"] = stuString;
+                localSettings.Values["isDefaultUrl"] = false;
+            }
+
+            await getCheckCode();
+
+        }
+
+        
+        //选择默认链接按钮
+        private void DefaultButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            UrpBox.IsEnabled = false;
+            StuBox.IsEnabled = false;
+        }
+
+        //选择自定义链接按钮
+        private void ChangedButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            UrpBox.IsEnabled = true;
+            StuBox.IsEnabled = true;
         }
     }
 }

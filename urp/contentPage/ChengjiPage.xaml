@@ -10,15 +10,16 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+       
         <ProgressRing Name="Ring" IsActive="False" FontSize="200"/>
-        <Pivot x:Name="Pivot1" SelectionChanged="Pivot1_SelectionChanged">
+        <Pivot x:Name="Pivot1" SelectionChanged="Pivot1_SelectionChanged" Background="WhiteSmoke" >
             <PivotItem >
                 <PivotItem.Header >全部及格成绩</PivotItem.Header>
-                <WebView x:Name="WebView1" DefaultBackgroundColor="Transparent" />
+                <WebView x:Name="WebView1" DefaultBackgroundColor="WhiteSmoke" />
             </PivotItem>
             <PivotItem>
                 <PivotItem.Header >不及格成绩</PivotItem.Header>
-                <WebView x:Name="WebView2" DefaultBackgroundColor="Transparent" ></WebView>
+                <WebView x:Name="WebView2" DefaultBackgroundColor="WhiteSmoke" ></WebView>
             </PivotItem>
         </Pivot>
         <controls:InAppNotification x:Name="Notification" ></controls:InAppNotification>

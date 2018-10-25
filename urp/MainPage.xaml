@@ -13,7 +13,7 @@
 
     <Grid>
         <Rectangle  Fill="{ThemeResource SystemControlAcrylicWindowBrush}"></Rectangle>
-        
+
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="8*"/>
@@ -30,7 +30,7 @@
                 <PasswordBox x:Name="PassWordBox"   Width="260" PlaceholderText="密码"/>
                 <CheckBox x:Name="IsSaveBox" Content="记住密码" Margin="20,0,0,0" RelativePanel.RightOf="PassWordBox" ></CheckBox>
             </RelativePanel>
-            
+
             <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBox Name="CheckCode"  VerticalAlignment="Center" Width="260" Margin="0,0,20,0" PlaceholderText="验证码"/>
                 <Image VerticalAlignment="Center" Source="Assets/yzm.png" Tapped="CheckCodeImage_OnTapped" Name="CheckCodeImage"  Height="33"></Image>
@@ -51,7 +51,30 @@
                 </StackPanel>
             </Button>
             <ProgressRing Name="LoginRing" Grid.Row="5" IsActive="False" VerticalAlignment="Top"></ProgressRing>
+            <CommandBar Grid.Row="5" VerticalAlignment="Bottom" DefaultLabelPosition="Bottom" Background="WhiteSmoke">
+                <AppBarButton Icon="Setting" x:Name="Setting" Label="更换数据源" Tapped="Setting_OnTapped"></AppBarButton>
+            </CommandBar>
             <controls:InAppNotification x:Name="LoginNotification" Grid.Row="5" ></controls:InAppNotification>
+            
         </Grid>
+
+        <ContentDialog
+            x:Name="ContentDialog"
+             PrimaryButtonClick="ContentDialog_OnPrimaryButtonClick"
+            Title="更换数据源"
+            PrimaryButtonText="保存"
+            DefaultButton="Primary"
+            >
+            
+            <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <RadioButton x:Name="DefaultButton" Click="DefaultButton_OnClick" GroupName="Setting" IsChecked="True" Content="使用学校默认链接，需要使用vpn"></RadioButton>
+                <RadioButton x:Name="ChangedButton" Click="ChangedButton_OnClick" GroupName="Setting" Content="使用自定义链接"></RadioButton>
+                <TextBox x:Name="UrpBox" Margin="0,20,0,0" IsEnabled="False" Header="综合教务系统（请以http://或https://开头）"></TextBox>
+                <TextBox x:Name="StuBox" Margin="0,20,0,0" IsEnabled="False" Header="教学管理系统（请以http://或https://开头）"></TextBox>
+            </StackPanel>
+
+        </ContentDialog>
+
+
     </Grid>
 </Page>

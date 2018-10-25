@@ -128,7 +128,6 @@
     <Compile Include="Struct\KebiaoStruct.cs" />
     <Compile Include="Struct\StuUser.cs" />
     <Compile Include="Util\Secret.cs" />
-    <Compile Include="Util\UrpApi.cs" />
     <Compile Include="Util\UrpApi2.cs" />
     <Compile Include="Util\UrpUtil.cs" />
     <Compile Include="Util\WebUtil.cs" />
