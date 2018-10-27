@@ -9,19 +9,180 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
-       
-        <ProgressRing Name="Ring" IsActive="False" FontSize="200"/>
-        <Pivot x:Name="Pivot1" SelectionChanged="Pivot1_SelectionChanged" Background="WhiteSmoke" >
+    <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+        <!--全局的semanticzoom源-->
+        <Grid.Resources>
+            <CollectionViewSource x:Name="itemcollectionSource" IsSourceGrouped="True" ItemsPath="ScoreList"></CollectionViewSource>
+            <Style x:Key="SmallTextBlockStyle" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="15"></Setter>
+                <Setter Property="TextWrapping" Value="Wrap"></Setter>
+            </Style>
+            <Style x:Key="HeadTextBlockStyle" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="22"></Setter>
+                <Setter Property="TextWrapping" Value="Wrap"></Setter>
+                <Setter Property="Foreground" Value="DodgerBlue"></Setter>
+            </Style>
+            <Style x:Key="BorderStyle" TargetType="Border">
+                <Setter Property="BorderThickness" Value="0,0,0,1" ></Setter>
+                <Setter Property="BorderBrush" Value="#e3e3e3" ></Setter>
+            </Style>
+        </Grid.Resources>
+        <Pivot x:Name="Pivot1" SelectionChanged="Pivot1_SelectionChanged"  >
+            <!--及格成绩pivot-->
             <PivotItem >
                 <PivotItem.Header >全部及格成绩</PivotItem.Header>
-                <WebView x:Name="WebView1" DefaultBackgroundColor="WhiteSmoke" />
+                <Grid>
+                    <StackPanel x:Name="NoInfo1" >
+                        <Image x:Name="NoImage1"  Width="100" Height="120"></Image>
+                        <TextBlock x:Name="NoTextBlock1" Margin="0,10,0,0"></TextBlock>
+                    </StackPanel>
+                    <SemanticZoom x:Name="SemanticZoom1">
+                        <!--放大视图-->
+                        <SemanticZoom.ZoomedInView>
+                            <ListView SelectionMode="None" x:Name="InListView1" Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+                                <!--分组控件-->
+                                <ListView.GroupStyle>
+                                    <GroupStyle>
+                                        <GroupStyle.HeaderTemplate>
+                                            <DataTemplate>
+                                                <StackPanel >
+                                                    <TextBlock  Text="{Binding Head}" Style="{StaticResource HeadTextBlockStyle}"></TextBlock>
+                                                    <TextBlock   Text="{Binding Lable}" Style="{StaticResource SmallTextBlockStyle}"></TextBlock>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </GroupStyle.HeaderTemplate>
+                                    </GroupStyle>
+                                </ListView.GroupStyle>
+                                <!--数据控件-->
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Style="{StaticResource BorderStyle}">
+                                            <Grid >
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="0" >
+                                                    <TextBlock Text="{Binding kechengming}" TextWrapping="Wrap" FontSize="20"></TextBlock>
+                                                    <TextBlock Text="{Binding yingwenkechengming}" Style="{StaticResource SmallTextBlockStyle}"></TextBlock>
+
+                                                </StackPanel>
+                                                <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" >
+                                                    <TextBlock Text="{Binding kechenghao}" Style="{StaticResource SmallTextBlockStyle}"></TextBlock>
+                                                    <TextBlock Text="{Binding kechengshuxing}" Style="{StaticResource SmallTextBlockStyle}"></TextBlock>
+                                                    <TextBlock Text="{Binding xuefen}" Style="{StaticResource SmallTextBlockStyle}"></TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                                                    <TextBlock Text="{Binding chengji}" TextWrapping="Wrap" FontSize="35"></TextBlock>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                                <!--数据控件样式-->
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                            </ListView>
+                        </SemanticZoom.ZoomedInView>
+                        <!--缩小视图-->
+                        <SemanticZoom.ZoomedOutView>
+                            <ListView x:Name="OutListView1">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <TextBlock  Text="{Binding Group.Head}" Style="{StaticResource HeadTextBlockStyle}"></TextBlock>
+                                            <TextBlock  Text="{Binding Group.Lable}"  Style="{StaticResource SmallTextBlockStyle}"></TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </SemanticZoom.ZoomedOutView>
+                    </SemanticZoom>
+                </Grid>
             </PivotItem>
+            <!--不及格成绩pivot-->
             <PivotItem>
                 <PivotItem.Header >不及格成绩</PivotItem.Header>
-                <WebView x:Name="WebView2" DefaultBackgroundColor="WhiteSmoke" ></WebView>
+                <Grid>
+                    <StackPanel x:Name="NoInfo2" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Image x:Name="NoImage2"  Width="100" Height="100"></Image>
+                        <TextBlock x:Name="NoTextBlock2" Margin="0,10,0,0" ></TextBlock>
+                    </StackPanel>
+                    <SemanticZoom x:Name="SemanticZoom2">
+                        <!--放大视图-->
+                        <SemanticZoom.ZoomedInView>
+                            <ListView SelectionMode="None" x:Name="InListView2" Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+                                <!--分组控件-->
+                                <ListView.GroupStyle>
+                                    <GroupStyle>
+                                        <GroupStyle.HeaderTemplate>
+                                            <DataTemplate>
+                                                <StackPanel >
+                                                    <TextBlock Style="{StaticResource HeadTextBlockStyle}" Text="{Binding Head}"></TextBlock>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </GroupStyle.HeaderTemplate>
+                                    </GroupStyle>
+                                </ListView.GroupStyle>
+                                <!--数据控件-->
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Style="{StaticResource BorderStyle}">
+                                            <Grid >
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="5*"></ColumnDefinition>
+                                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="0" >
+                                                    <TextBlock Text="{Binding kechengming}" TextWrapping="Wrap" FontSize="20"></TextBlock>
+                                                    <TextBlock Text="{Binding yingwenkechengming}" Style="{StaticResource SmallTextBlockStyle}"></TextBlock>
+
+                                                </StackPanel>
+                                                <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" >
+                                                    <TextBlock Text="{Binding kechenghao}" Style="{StaticResource SmallTextBlockStyle}"></TextBlock>
+                                                    <TextBlock Text="{Binding kechengshuxing}" Style="{StaticResource SmallTextBlockStyle}"></TextBlock>
+                                                    <TextBlock Text="{Binding xuefen}" Style="{StaticResource SmallTextBlockStyle}"></TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                                                    <TextBlock Text="{Binding chengji}" TextWrapping="Wrap" FontSize="35"></TextBlock>
+                                                    <TextBlock Text="{Binding time}" Style="{StaticResource SmallTextBlockStyle}"></TextBlock>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                                <!--数据样式-->
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="Padding" Value="0"></Setter>
+                                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                            </ListView>
+                        </SemanticZoom.ZoomedInView>
+                        <SemanticZoom.ZoomedOutView>
+                            <ListView x:Name="OutListView2">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <TextBlock  Text="{Binding Group.Head}" Style="{StaticResource HeadTextBlockStyle}"></TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </SemanticZoom.ZoomedOutView>
+                    </SemanticZoom>
+                </Grid>
             </PivotItem>
         </Pivot>
         <controls:InAppNotification x:Name="Notification" ></controls:InAppNotification>
+        <ProgressRing Name="Ring" IsActive="False" FontSize="200"/>
     </Grid>
 </Page>

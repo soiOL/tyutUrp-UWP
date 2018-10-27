@@ -10,10 +10,9 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <ProgressRing Name="Ring" IsActive="False"></ProgressRing>
         <WebView Name="WebView"></WebView>
         <!--<controls:DataGrid x:Name="KebiaoGrid" AutoGenerateColumns="False" IsReadOnly="True" AlternatingRowBackground="Honeydew"  CanUserResizeColumns="False" >
-            <controls:DataGrid.Columns >
+            <controls:DataGrid.Columns  >
                 <controls:DataGridTextColumn Header="" Binding="{Binding Count}"/>
                 <controls:DataGridTextColumn Header="星期一" Binding="{Binding Mon}"/>
                 <controls:DataGridTextColumn Header="星期二" Binding="{Binding Tue}"/>
@@ -25,5 +24,6 @@
             </controls:DataGrid.Columns>
         </controls:DataGrid>-->
         <controls:InAppNotification x:Name="Notification" ></controls:InAppNotification>
+        <ProgressRing Name="Ring" IsActive="False"></ProgressRing>
     </Grid>
 </Page>

@@ -24,9 +24,17 @@ namespace urp.Util
             webUtil = new WebUtil();
 
         }
-
-        //登录综合教务系统
-
+        
+        //去除字符串中的杂项
+        public string getRealString(string value)
+        {
+            value = value.Replace("\r", "");
+            value = value.Replace("\n", "");
+            value = value.Replace("\t", "");
+            value = value.Replace("&nbsp;", "");
+            value = value.Trim();
+            return value;
+        }
 
         //获取学籍信息
         public async Task<int> GetUserInfo(Dictionary<string, string> map)
@@ -50,19 +58,12 @@ namespace urp.Util
                             if (i % 2 == 0)
                             {
                                 key = td[i].InnerText;
-                                key = key.Replace("\r", "");
-                                key = key.Replace("\n", "");
-                                key = key.Replace("\t", "");
-                                key = key.Replace("&nbsp;", "");
+                                key = getRealString(key);
                             }
                             else
                             {
                                 value = td[i].InnerText;
-                                value = value.Replace("\r", "");
-                                value = value.Replace("\n", "");
-                                value = value.Replace("\t", "");
-                                value = value.Replace(" ", "");
-                                value = value.Replace("&nbsp;", "");
+                                value = getRealString(value);
                                 if (!string.IsNullOrEmpty(key) && !string.IsNullOrEmpty(value))
                                     map.Add(key, value);
                             }
@@ -81,7 +82,7 @@ namespace urp.Util
             }
         }
 
-        //获取全部及格成绩
+        //获取全部及格成绩,可直接用作webview
         public async Task<string> getGoodScore()
         {
             string result = await webUtil.GetString(UrpApi2.URL + UrpApi2.URL_QB);
@@ -95,7 +96,82 @@ namespace urp.Util
             return "SESSION";
         }
 
-        //获取不及格成绩
+        //获取全部及格成绩列表
+        public void getGoodScoreList(List<AllScore> allScores,string html)
+        {
+            try
+            {
+                var doc = new HtmlDocument();
+                Regex rgx = new Regex("</a>");
+                var scores = rgx.Split(html);
+                if (scores.Length > 1)
+                {
+                    for (int i = 1; i < scores.Length; i++)
+                    {
+                        var score = scores[i];
+                        var allScore = new AllScore();
+                        var scoreList = new List<ScoreStruct>();
+                        doc.LoadHtml(score);
+                        var head = doc.DocumentNode.SelectSingleNode("//b").InnerText;
+                        head = getRealString(head);
+                        allScore.Head = head;
+                        var lable = doc.DocumentNode.SelectSingleNode("//td[@height='21']").InnerText;
+                        lable = getRealString(lable);
+                        allScore.Lable = lable;
+                        var scoreTable = doc.DocumentNode.SelectSingleNode("//td[@class='pageAlign']/table[1]");
+                        var scoreTrs = scoreTable.SelectNodes("./tr");
+                        foreach (var scoreTr in scoreTrs)
+                        {
+                            var scoreTds = scoreTr.SelectNodes("./td");
+                            var scoreStruct = new ScoreStruct();
+                            for (int j = 0; j < scoreTds.Count; j++)
+                            {
+                                var info = scoreTds[j].InnerText;
+                                info = getRealString(info);
+                                switch (j % 7)
+                                {
+                                    case 0:
+                                        scoreStruct.kechenghao = "课程号：" + info;
+                                        break;
+                                    case 1:
+                                        scoreStruct.kexuhao = "课序号：" + info;
+                                        break;
+                                    case 2:
+                                        scoreStruct.kechengming = info;
+                                        break;
+                                    case 3:
+                                        scoreStruct.yingwenkechengming = info;
+                                        break;
+                                    case 4:
+                                        scoreStruct.xuefen = "学分：" + info;
+                                        break;
+                                    case 5:
+                                        scoreStruct.kechengshuxing = info;
+                                        break;
+                                    case 6:
+                                        scoreStruct.chengji = info;
+                                        break;
+
+                                }
+                            }
+                            scoreList.Add(scoreStruct);
+                        }
+
+                        allScore.ScoreList = scoreList;
+                        allScores.Add(allScore);
+                    }
+                }
+                
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            
+        }
+
+        //获取不及格成绩,可直接用作webview
         public async Task<string> getBadScore()
         {
             string result = await webUtil.GetString(UrpApi2.URL + UrpApi2.URL_BJG);
@@ -108,6 +184,121 @@ namespace urp.Util
                 return result;
             }
             return "SESSION";
+        }
+
+        //获取不及格成绩列表
+        public void getBadScoreList(List<AllScore> allScores, string html)
+        {
+            var doc = new HtmlDocument();
+            doc.LoadHtml(html);
+            var tables = doc.DocumentNode.SelectNodes("//td[@class='pageAlign']/table");
+            //尚不及格列表
+            var sTrs = tables[0].SelectNodes("./tr");
+            //曾不及格列表
+            var cTrs = tables[1].SelectNodes("./tr");
+            var scoreList = new List<ScoreStruct>();
+            if (sTrs != null)
+            {
+                foreach (var sTr in sTrs)
+                {
+                    var sTds = sTr.SelectNodes("./td");
+                    ScoreStruct scoreStruct = new ScoreStruct();
+                    for (int i = 0; i < sTds.Count; i++)
+                    {
+                        var info = sTds[i].InnerText;
+                        info = getRealString(info);
+                        switch (i % 9)
+                        {
+                            case 0:
+                                scoreStruct.kechenghao = "课程号：" + info;
+                                break;
+                            case 1:
+                                scoreStruct.kexuhao = "课序号：" + info;
+                                break;
+                            case 2:
+                                scoreStruct.kechengming = info;
+                                break;
+                            case 3:
+                                scoreStruct.yingwenkechengming = info;
+                                break;
+                            case 4:
+                                scoreStruct.xuefen = "学分：" + info;
+                                break;
+                            case 5:
+                                scoreStruct.kechengshuxing = info;
+                                break;
+                            case 6:
+                                scoreStruct.chengji = info;
+                                break;
+                            case 7:
+                                scoreStruct.time = "考试时间：" + info;
+                                break;
+                            case 8:
+                                scoreStruct.why = "未通过原因" + info;
+                                break;
+
+                        }
+                    }
+                    scoreList.Add(scoreStruct);
+                }
+                allScores.Add(new AllScore()
+                {
+                    Head = "尚不及格学科",
+                    Lable = "",
+                    ScoreList = scoreList
+                });
+            }
+            if (cTrs != null)
+            {
+                foreach (var cTr in cTrs)
+                {
+                    var cTds = cTr.SelectNodes("./td");
+                    ScoreStruct scoreStruct = new ScoreStruct();
+                    for (int i = 0; i < cTds.Count; i++)
+                    {
+                        var info = cTds[i].InnerText;
+                        info = getRealString(info);
+                        switch (i % 9)
+                        {
+                            case 0:
+                                scoreStruct.kechenghao = "课程号：" + info;
+                                break;
+                            case 1:
+                                scoreStruct.kexuhao = "课序号：" + info;
+                                break;
+                            case 2:
+                                scoreStruct.kechengming = info;
+                                break;
+                            case 3:
+                                scoreStruct.yingwenkechengming = info;
+                                break;
+                            case 4:
+                                scoreStruct.xuefen = "学分：" + info;
+                                break;
+                            case 5:
+                                scoreStruct.kechengshuxing = info;
+                                break;
+                            case 6:
+                                scoreStruct.chengji = info;
+                                break;
+                            case 7:
+                                scoreStruct.time = "考试时间：\n" + info;
+                                break;
+                            case 8:
+                                scoreStruct.why = "未通过原因" + info;
+                                break;
+
+                        }
+                    }
+                    scoreList.Add(scoreStruct);
+                }
+                allScores.Add(new AllScore()
+                {
+                    Head = "曾不及格学科",
+                    Lable = "",
+                    ScoreList = scoreList
+                });
+            }
         }
 
         //登录教学管理系统

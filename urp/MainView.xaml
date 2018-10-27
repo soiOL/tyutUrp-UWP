@@ -9,7 +9,7 @@
 
     <Grid>
         <Rectangle  Fill="{ThemeResource SystemControlAcrylicWindowBrush}"/>
-        <NavigationView IsSettingsVisible="False" IsPaneOpen="False" AlwaysShowHeader="False" Windows10version1803:IsBackButtonVisible="Collapsed" x:Name="MainNavigation">
+        <NavigationView IsSettingsVisible="False" IsPaneOpen="False" AlwaysShowHeader="False" Windows10version1803:IsBackButtonVisible="Collapsed" x:Name="MainNavigation" >
             <NavigationView.MenuItems> 
                 <NavigationViewItem Name="gerenxinxi" Tapped="Gerenxinxi_OnTapped" Icon="ContactInfo"  Content="个人信息" Tag="个人信息" />
                 <NavigationViewItem Name="chengji" Tapped="Chengji_OnTapped" Icon="AllApps" Content="成绩" Tag="成绩" />

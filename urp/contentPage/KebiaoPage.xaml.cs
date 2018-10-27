@@ -45,17 +45,31 @@ namespace urp
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             Ring.IsActive = true;
-            WebUtil webUtil = new WebUtil();
-            string result = await webUtil.GetString(UrpApi2.URL + UrpApi2.URL_KB);
-            if (result.Contains("学生选课结果"))
+            try
             {
-                WebView.Navigate(new Uri(UrpApi2.URL + UrpApi2.URL_KB));
+                WebUtil webUtil = new WebUtil();
+                string result = await webUtil.GetString(UrpApi2.URL + UrpApi2.URL_KB);
+                if (result.Contains("学生选课结果"))
+                {
+                    WebView.Navigate(new Uri(UrpApi2.URL + UrpApi2.URL_KB));
+                }
+                else
+                {
+                    root.Navigate(typeof(MainPage), 1);
+                }
             }
-            else
+            catch (Exception exception)
             {
-                root.Navigate(typeof(MainPage), 1);
+                Console.WriteLine(exception);
+                Notification.Show("获取信息失败", 3000);
             }
+            finally
+            {
+                Ring.IsActive = false;
+            }
+            
             //await getKebiao();
+
         }
 
         private async Task getKebiao()

@@ -47,6 +47,7 @@ namespace urp
             user.userName = UserNameBox.Text;
             user.passWord = PassWordBox.Password;
             user.checkCode = CheckCode.Text;
+            CheckCodeImage.IsTapEnabled = false;
             if (string.IsNullOrEmpty(user.userName) || !user.userName.IsNumeric())
             {
                 LoginNotification.Show("请输入正确的用户名",2000);
@@ -123,6 +124,7 @@ namespace urp
                 LoginRing.IsActive = false;
                 LoginButton.IsEnabled = true;
                 Setting.IsEnabled = true;
+                CheckCodeImage.IsTapEnabled = true;
             }
         }
 

@@ -124,8 +124,10 @@
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Struct\AllScore.cs" />
     <Compile Include="Struct\JidianStruct.cs" />
     <Compile Include="Struct\KebiaoStruct.cs" />
+    <Compile Include="Struct\ScoreStruct.cs" />
     <Compile Include="Struct\StuUser.cs" />
     <Compile Include="Util\Secret.cs" />
     <Compile Include="Util\UrpApi2.cs" />
@@ -150,6 +152,8 @@
     <Content Include="Assets\loginLogo.png" />
     <Content Include="Assets\logo.png" />
     <Content Include="Assets\logo2.png" />
+    <Content Include="Assets\nobad.png" />
+    <Content Include="Assets\null.png" />
     <Content Include="Assets\SmallTile.scale-100.png" />
     <Content Include="Assets\SmallTile.scale-125.png" />
     <Content Include="Assets\SmallTile.scale-150.png" />

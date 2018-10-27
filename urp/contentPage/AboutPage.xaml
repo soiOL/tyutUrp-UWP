@@ -11,15 +11,18 @@
     <Grid>
         <Rectangle  Fill="{ThemeResource SystemControlAcrylicWindowBrush}"/>
         <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
-            <StackPanel Margin="0,80,0,0" Background="WhiteSmoke" BorderThickness="2,2,2,2" >
-                <TextBlock Text="获取安卓版"  Style="{StaticResource TitleTextBlockStyle}"/>
-                <HyperlinkButton NavigateUri="http://www.contoso.com">
-                    <Image Source="../Assets/andriod.png" Stretch="None"/>
-                </HyperlinkButton>
-                <TextBlock Text="Version: 1.1.2" Style="{StaticResource CaptionTextBlockStyle}"/>
-                <HyperlinkButton Content="项目开源地址" NavigateUri="https://github.com/soiOL/tyutUrp-UWP"/>
-                <HyperlinkButton Content="本人博客" NavigateUri="https://soiol.cn"/>
-                <HyperlinkButton Content="友情链接" NavigateUri="https://risid.com"/>
+            <StackPanel Margin="0,60,0,0" Background="White" >
+                <StackPanel Margin="10,10,10,10">
+                    <TextBlock Text="获取安卓版简教"  Style="{StaticResource TitleTextBlockStyle}"/>
+                    <HyperlinkButton NavigateUri="https://risid.com/media/com.risid.urp.apk">
+                        <Image Source="../Assets/andriod.png" Stretch="None"/>
+                    </HyperlinkButton>
+                    <TextBlock Text="Version: 1.1.2" Style="{StaticResource CaptionTextBlockStyle}"/>
+                    <HyperlinkButton Content="项目开源地址" NavigateUri="https://github.com/soiOL/tyutUrp-UWP"/>
+                    <HyperlinkButton Content="本人博客" NavigateUri="https://soiol.cn"/>
+                    <HyperlinkButton Content="友情链接" NavigateUri="https://risid.com"/>
+                </StackPanel>
+                
             </StackPanel>
 
         </StackPanel>
