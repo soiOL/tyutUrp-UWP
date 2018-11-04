@@ -11,10 +11,10 @@
 
     <Grid>
         <ProgressRing Name="Ring" IsActive="False"></ProgressRing>
-        <GridView x:Name="GridView" >
+        <controls:AdaptiveGridView x:Name="GridView" DesiredWidth="250" StretchContentForSingleRow="True" >
             <GridView.ItemTemplate >
                 <DataTemplate>
-                    <TextBlock x:Name="InfoText" Text="{Binding values}" Width="240" Height="30"></TextBlock>
+                    <TextBlock x:Name="InfoText" Text="{Binding values}" Margin="5,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap" ></TextBlock>
                 </DataTemplate>
             </GridView.ItemTemplate>
             <GridView.Header>
@@ -25,14 +25,7 @@
                     </Grid>
                 </controls:ScrollHeader>
             </GridView.Header>
-            <GridView.ItemContainerStyle>
-                <Style TargetType="GridViewItem">
-                    <Setter Property="BorderThickness" Value="1"></Setter>
-                    <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
-                    <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
-                </Style>
-            </GridView.ItemContainerStyle>
-        </GridView>
+        </controls:AdaptiveGridView>
         <controls:InAppNotification x:Name="Notification" ></controls:InAppNotification>
     </Grid>
 </Page>

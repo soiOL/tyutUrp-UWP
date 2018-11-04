@@ -24,6 +24,6 @@
             </controls:DataGrid.Columns>
         </controls:DataGrid>-->
         <controls:InAppNotification x:Name="Notification" ></controls:InAppNotification>
-        <ProgressRing Name="Ring" IsActive="False"></ProgressRing>
+        <ProgressRing Name="Ring" FontSize="200" IsActive="False"></ProgressRing>
     </Grid>
 </Page>

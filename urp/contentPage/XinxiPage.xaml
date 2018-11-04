@@ -7,28 +7,21 @@
 
     <Grid>
         <ProgressRing Name="Ring" IsActive="False"></ProgressRing>
-        <GridView x:Name="GridView" >
-            <GridView.ItemTemplate >
+        <controls:AdaptiveGridView x:Name="GridView" DesiredWidth="250"  StretchContentForSingleRow="True">
+            <controls:AdaptiveGridView.ItemTemplate >
                 <DataTemplate>
-                    <TextBlock x:Name="InfoText" Text="{Binding values}" Width="240" Height="30"></TextBlock>
+                    <TextBlock x:Name="InfoText" HorizontalAlignment="Left" Margin="4,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Text="{Binding values}" ></TextBlock>
                 </DataTemplate>
-            </GridView.ItemTemplate>
-            <GridView.Header>
+            </controls:AdaptiveGridView.ItemTemplate>
+            <controls:AdaptiveGridView.Header>
                 <controls:ScrollHeader Name="Header" VerticalAlignment="Top" Mode="Fade">
                     <Grid>
                         <Image Source="../Assets/TitleImage.jpg"  Height="250" Stretch="None"></Image>
                         <TextBlock Name="TitleText" Foreground="GhostWhite" Text="个人信息" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Microsoft YaHei UI" FontSize="72" />
                     </Grid>
                 </controls:ScrollHeader>
-            </GridView.Header>
-            <GridView.ItemContainerStyle>
-                <Style TargetType="GridViewItem">
-                    <Setter Property="BorderThickness" Value="1"></Setter>
-                    <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
-                    <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
-                </Style>
-            </GridView.ItemContainerStyle>
-        </GridView>
+            </controls:AdaptiveGridView.Header>
+        </controls:AdaptiveGridView>
         <controls:InAppNotification x:Name="Notification" ></controls:InAppNotification>
     </Grid>
 </Page>

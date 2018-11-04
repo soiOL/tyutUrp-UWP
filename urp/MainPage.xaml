@@ -9,7 +9,9 @@
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"  
     xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" KeyDown="Page_KeyDown"
+    
+    >
 
     <Grid>
         <Rectangle  Fill="{ThemeResource SystemControlAcrylicWindowBrush}"></Rectangle>

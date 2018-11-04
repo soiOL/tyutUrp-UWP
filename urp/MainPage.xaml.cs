@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -43,89 +44,7 @@ namespace urp
         //登录操作
         private async void LoginButton_OnClick(object sender, RoutedEventArgs e)
         {
-            StuUser user = new StuUser();
-            user.userName = UserNameBox.Text;
-            user.passWord = PassWordBox.Password;
-            user.checkCode = CheckCode.Text;
-            CheckCodeImage.IsTapEnabled = false;
-            if (string.IsNullOrEmpty(user.userName) || !user.userName.IsNumeric())
-            {
-                LoginNotification.Show("请输入正确的用户名",2000);
-                return;
-            }
-
-            if (string.IsNullOrEmpty(user.passWord))
-            {
-                LoginNotification.Show("请输入密码",2000);
-                return;
-            }
-             
-            if (string.IsNullOrEmpty(user.checkCode))
-            {
-                LoginNotification.Show("请输入验证码",2000);
-                return;
-            }
-            LoginRing.IsActive = true;
-            LoginButton.IsEnabled = false;
-            Setting.IsEnabled = false;
-            try
-            {
-                List<KeyValuePair<string, string>> paramList = new List<KeyValuePair<string, string>>();
-                paramList.Add(new KeyValuePair<string, string>("zjh", user.userName));
-                paramList.Add(new KeyValuePair<string, string>("mm", user.passWord));
-                paramList.Add(new KeyValuePair<string, string>("v_yzm", user.checkCode));
-                string result = await webUtil.PostString(UrpApi2.URL+UrpApi2.URL_LOGIN, paramList);
-                var doc = new HtmlDocument();
-                doc.LoadHtml(result);
-                result = doc.DocumentNode.SelectSingleNode("//title").InnerText;
-                if (result.Contains("学分制综合教务"))
-                {
-                    localSettings.Values["userName"] = user.userName;
-                    localSettings.Values["passWord"] = user.passWord;
-                    if (IsSaveBox.IsChecked == true)
-                    {
-                        localSettings.Values["isSave"] = true;
-                    }
-                    else
-                    {
-                        localSettings.Values["isSave"] = false;
-                    }
-                    root.Navigate(typeof(MainView));
-                }
-                else
-                {
-                    result = doc.DocumentNode.SelectSingleNode("//td[@class='errorTop']").InnerText;
-                    if (result.Contains("验证码"))
-                    {
-                        LoginNotification.Show("验证码错误",3000);
-                    }
-                    else if (result.Contains("证件号"))
-                    {
-                        LoginNotification.Show("用户名错误",3000);
-                    }
-                    else if (result.Contains("密码"))
-                    {
-                        LoginNotification.Show("密码错误",3000);
-                    }
-                    else
-                    {
-                        LoginNotification.Show("连接超时，请重试",3000);
-                    }
-                    await getCheckCode();
-                }
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception);
-                LoginNotification.Show("网络错误",3000);
-            }
-            finally
-            {
-                LoginRing.IsActive = false;
-                LoginButton.IsEnabled = true;
-                Setting.IsEnabled = true;
-                CheckCodeImage.IsTapEnabled = true;
-            }
+            await Login();
         }
 
         //页面打开时
@@ -247,6 +166,103 @@ namespace urp
         {
             UrpBox.IsEnabled = true;
             StuBox.IsEnabled = true;
+        }
+
+        //回车登录
+        private async void Page_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == VirtualKey.Enter)
+            {
+                await Login();
+            }
+        }
+
+        //登录事件
+        private async Task Login()
+        {
+            StuUser user = new StuUser();
+            user.userName = UserNameBox.Text;
+            user.passWord = PassWordBox.Password;
+            user.checkCode = CheckCode.Text;
+            CheckCodeImage.IsTapEnabled = false;
+            if (string.IsNullOrEmpty(user.userName) || !user.userName.IsNumeric())
+            {
+                LoginNotification.Show("请输入正确的用户名", 2000);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(user.passWord))
+            {
+                LoginNotification.Show("请输入密码", 2000);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(user.checkCode))
+            {
+                LoginNotification.Show("请输入验证码", 2000);
+                return;
+            }
+            LoginRing.IsActive = true;
+            LoginButton.IsEnabled = false;
+            Setting.IsEnabled = false;
+            try
+            {
+                List<KeyValuePair<string, string>> paramList = new List<KeyValuePair<string, string>>();
+                paramList.Add(new KeyValuePair<string, string>("zjh", user.userName));
+                paramList.Add(new KeyValuePair<string, string>("mm", user.passWord));
+                paramList.Add(new KeyValuePair<string, string>("v_yzm", user.checkCode));
+                string result = await webUtil.PostString(UrpApi2.URL + UrpApi2.URL_LOGIN, paramList);
+                var doc = new HtmlDocument();
+                doc.LoadHtml(result);
+                result = doc.DocumentNode.SelectSingleNode("//title").InnerText;
+                if (result.Contains("学分制综合教务"))
+                {
+                    localSettings.Values["userName"] = user.userName;
+                    localSettings.Values["passWord"] = user.passWord;
+                    if (IsSaveBox.IsChecked == true)
+                    {
+                        localSettings.Values["isSave"] = true;
+                    }
+                    else
+                    {
+                        localSettings.Values["isSave"] = false;
+                    }
+                    root.Navigate(typeof(MainView));
+                }
+                else
+                {
+                    result = doc.DocumentNode.SelectSingleNode("//td[@class='errorTop']").InnerText;
+                    if (result.Contains("验证码"))
+                    {
+                        LoginNotification.Show("验证码错误", 3000);
+                    }
+                    else if (result.Contains("证件号"))
+                    {
+                        LoginNotification.Show("用户名错误", 3000);
+                    }
+                    else if (result.Contains("密码"))
+                    {
+                        LoginNotification.Show("密码错误", 3000);
+                    }
+                    else
+                    {
+                        LoginNotification.Show("连接超时，请重试", 3000);
+                    }
+                    await getCheckCode();
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                LoginNotification.Show("网络错误", 3000);
+            }
+            finally
+            {
+                LoginRing.IsActive = false;
+                LoginButton.IsEnabled = true;
+                Setting.IsEnabled = true;
+                CheckCodeImage.IsTapEnabled = true;
+            }
         }
     }
 }

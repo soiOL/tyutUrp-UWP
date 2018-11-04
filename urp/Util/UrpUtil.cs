@@ -97,8 +97,9 @@ namespace urp.Util
         }
 
         //获取全部及格成绩列表
-        public void getGoodScoreList(List<AllScore> allScores,string html)
+        public List<AllScore> getGoodScoreList(string html)
         {
+            List<AllScore> allScores = new List<AllScore>();
             try
             {
                 var doc = new HtmlDocument();
@@ -120,43 +121,45 @@ namespace urp.Util
                         allScore.Lable = lable;
                         var scoreTable = doc.DocumentNode.SelectSingleNode("//td[@class='pageAlign']/table[1]");
                         var scoreTrs = scoreTable.SelectNodes("./tr");
-                        foreach (var scoreTr in scoreTrs)
+                        if (scoreTrs != null)
                         {
-                            var scoreTds = scoreTr.SelectNodes("./td");
-                            var scoreStruct = new ScoreStruct();
-                            for (int j = 0; j < scoreTds.Count; j++)
+                            foreach (var scoreTr in scoreTrs)
                             {
-                                var info = scoreTds[j].InnerText;
-                                info = getRealString(info);
-                                switch (j % 7)
+                                var scoreTds = scoreTr.SelectNodes("./td");
+                                var scoreStruct = new ScoreStruct();
+                                for (int j = 0; j < scoreTds.Count; j++)
                                 {
-                                    case 0:
-                                        scoreStruct.kechenghao = "课程号：" + info;
-                                        break;
-                                    case 1:
-                                        scoreStruct.kexuhao = "课序号：" + info;
-                                        break;
-                                    case 2:
-                                        scoreStruct.kechengming = info;
-                                        break;
-                                    case 3:
-                                        scoreStruct.yingwenkechengming = info;
-                                        break;
-                                    case 4:
-                                        scoreStruct.xuefen = "学分：" + info;
-                                        break;
-                                    case 5:
-                                        scoreStruct.kechengshuxing = info;
-                                        break;
-                                    case 6:
-                                        scoreStruct.chengji = info;
-                                        break;
+                                    var info = scoreTds[j].InnerText;
+                                    info = getRealString(info);
+                                    switch (j % 7)
+                                    {
+                                        case 0:
+                                            scoreStruct.kechenghao = "课程号：" + info;
+                                            break;
+                                        case 1:
+                                            scoreStruct.kexuhao = "课序号：" + info;
+                                            break;
+                                        case 2:
+                                            scoreStruct.kechengming = info;
+                                            break;
+                                        case 3:
+                                            scoreStruct.yingwenkechengming = info;
+                                            break;
+                                        case 4:
+                                            scoreStruct.xuefen = "学分：" + info;
+                                            break;
+                                        case 5:
+                                            scoreStruct.kechengshuxing = info;
+                                            break;
+                                        case 6:
+                                            scoreStruct.chengji = info;
+                                            break;
 
+                                    }
                                 }
+                                scoreList.Add(scoreStruct);
                             }
-                            scoreList.Add(scoreStruct);
                         }
-
                         allScore.ScoreList = scoreList;
                         allScores.Add(allScore);
                     }
@@ -168,7 +171,9 @@ namespace urp.Util
                 Console.WriteLine(e);
                 throw;
             }
-            
+
+            return allScores;
+
         }
 
         //获取不及格成绩,可直接用作webview
@@ -187,118 +192,130 @@ namespace urp.Util
         }
 
         //获取不及格成绩列表
-        public void getBadScoreList(List<AllScore> allScores, string html)
+        public List<AllScore> getBadScoreList( string html)
         {
-            var doc = new HtmlDocument();
-            doc.LoadHtml(html);
-            var tables = doc.DocumentNode.SelectNodes("//td[@class='pageAlign']/table");
-            //尚不及格列表
-            var sTrs = tables[0].SelectNodes("./tr");
-            //曾不及格列表
-            var cTrs = tables[1].SelectNodes("./tr");
-            var scoreList = new List<ScoreStruct>();
-            if (sTrs != null)
+            List<AllScore> allScores = new List<AllScore>();
+            try
             {
-                foreach (var sTr in sTrs)
+                var doc = new HtmlDocument();
+                doc.LoadHtml(html);
+                var tables = doc.DocumentNode.SelectNodes("//td[@class='pageAlign']/table");
+                //尚不及格列表
+                var sTrs = tables[0].SelectNodes("./tr");
+                //曾不及格列表
+                var cTrs = tables[1].SelectNodes("./tr");
+                if (sTrs != null)
                 {
-                    var sTds = sTr.SelectNodes("./td");
-                    ScoreStruct scoreStruct = new ScoreStruct();
-                    for (int i = 0; i < sTds.Count; i++)
+                    var scoreList1 = new List<ScoreStruct>();
+                    foreach (var sTr in sTrs)
                     {
-                        var info = sTds[i].InnerText;
-                        info = getRealString(info);
-                        switch (i % 9)
+                        var sTds = sTr.SelectNodes("./td");
+                        ScoreStruct scoreStruct1 = new ScoreStruct();
+                        for (int i = 0; i < sTds.Count; i++)
                         {
-                            case 0:
-                                scoreStruct.kechenghao = "课程号：" + info;
-                                break;
-                            case 1:
-                                scoreStruct.kexuhao = "课序号：" + info;
-                                break;
-                            case 2:
-                                scoreStruct.kechengming = info;
-                                break;
-                            case 3:
-                                scoreStruct.yingwenkechengming = info;
-                                break;
-                            case 4:
-                                scoreStruct.xuefen = "学分：" + info;
-                                break;
-                            case 5:
-                                scoreStruct.kechengshuxing = info;
-                                break;
-                            case 6:
-                                scoreStruct.chengji = info;
-                                break;
-                            case 7:
-                                scoreStruct.time = "考试时间：" + info;
-                                break;
-                            case 8:
-                                scoreStruct.why = "未通过原因" + info;
-                                break;
+                            var info = sTds[i].InnerText;
+                            info = getRealString(info);
+                            switch (i % 9)
+                            {
+                                case 0:
+                                    scoreStruct1.kechenghao = "课程号：" + info;
+                                    break;
+                                case 1:
+                                    scoreStruct1.kexuhao = "课序号：" + info;
+                                    break;
+                                case 2:
+                                    scoreStruct1.kechengming = info;
+                                    break;
+                                case 3:
+                                    scoreStruct1.yingwenkechengming = info;
+                                    break;
+                                case 4:
+                                    scoreStruct1.xuefen = "学分：" + info;
+                                    break;
+                                case 5:
+                                    scoreStruct1.kechengshuxing = info;
+                                    break;
+                                case 6:
+                                    scoreStruct1.chengji = info;
+                                    break;
+                                case 7:
+                                    scoreStruct1.time = "考试时间：\n" + info;
+                                    break;
+                                case 8:
+                                    scoreStruct1.why = "未通过原因" + info;
+                                    break;
 
+                            }
                         }
+                        scoreList1.Add(scoreStruct1);
                     }
-                    scoreList.Add(scoreStruct);
+                    allScores.Add(new AllScore()
+                    {
+                        Head = "尚不及格学科",
+                        Lable = "",
+                        ScoreList = scoreList1
+                    });
                 }
-                allScores.Add(new AllScore()
+                if (cTrs != null)
                 {
-                    Head = "尚不及格学科",
-                    Lable = "",
-                    ScoreList = scoreList
-                });
+                    var scoreList2 = new List<ScoreStruct>();
+                    foreach (var cTr in cTrs)
+                    {
+                        var cTds = cTr.SelectNodes("./td");
+                        ScoreStruct scoreStruct2 = new ScoreStruct();
+                        for (int i = 0; i < cTds.Count; i++)
+                        {
+                            var info = cTds[i].InnerText;
+                            info = getRealString(info);
+                            switch (i % 9)
+                            {
+                                case 0:
+                                    scoreStruct2.kechenghao = "课程号：" + info;
+                                    break;
+                                case 1:
+                                    scoreStruct2.kexuhao = "课序号：" + info;
+                                    break;
+                                case 2:
+                                    scoreStruct2.kechengming = info;
+                                    break;
+                                case 3:
+                                    scoreStruct2.yingwenkechengming = info;
+                                    break;
+                                case 4:
+                                    scoreStruct2.xuefen = "学分：" + info;
+                                    break;
+                                case 5:
+                                    scoreStruct2.kechengshuxing = info;
+                                    break;
+                                case 6:
+                                    scoreStruct2.chengji = info;
+                                    break;
+                                case 7:
+                                    scoreStruct2.time = "考试时间：\n" + info;
+                                    break;
+                                case 8:
+                                    scoreStruct2.why = "未通过原因" + info;
+                                    break;
+
+                            }
+                        }
+                        scoreList2.Add(scoreStruct2);
+                    }
+                    allScores.Add(new AllScore()
+                    {
+                        Head = "曾不及格学科",
+                        Lable = "",
+                        ScoreList = scoreList2
+                    });
+                }
             }
-            if (cTrs != null)
+            catch (Exception e)
             {
-                foreach (var cTr in cTrs)
-                {
-                    var cTds = cTr.SelectNodes("./td");
-                    ScoreStruct scoreStruct = new ScoreStruct();
-                    for (int i = 0; i < cTds.Count; i++)
-                    {
-                        var info = cTds[i].InnerText;
-                        info = getRealString(info);
-                        switch (i % 9)
-                        {
-                            case 0:
-                                scoreStruct.kechenghao = "课程号：" + info;
-                                break;
-                            case 1:
-                                scoreStruct.kexuhao = "课序号：" + info;
-                                break;
-                            case 2:
-                                scoreStruct.kechengming = info;
-                                break;
-                            case 3:
-                                scoreStruct.yingwenkechengming = info;
-                                break;
-                            case 4:
-                                scoreStruct.xuefen = "学分：" + info;
-                                break;
-                            case 5:
-                                scoreStruct.kechengshuxing = info;
-                                break;
-                            case 6:
-                                scoreStruct.chengji = info;
-                                break;
-                            case 7:
-                                scoreStruct.time = "考试时间：\n" + info;
-                                break;
-                            case 8:
-                                scoreStruct.why = "未通过原因" + info;
-                                break;
-
-                        }
-                    }
-                    scoreList.Add(scoreStruct);
-                }
-                allScores.Add(new AllScore()
-                {
-                    Head = "曾不及格学科",
-                    Lable = "",
-                    ScoreList = scoreList
-                });
+                Console.WriteLine(e);
+                throw;
             }
+
+            return allScores;
         }
 
         //登录教学管理系统

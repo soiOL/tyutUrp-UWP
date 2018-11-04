@@ -58,8 +58,8 @@ namespace urp
                             else
                             {
 
-                                List<AllScore> allScores = new List<AllScore>();
-                                urpUtil.getGoodScoreList(allScores, jigehtml);
+                                List<AllScore> allScores = urpUtil.getGoodScoreList(jigehtml);
+
                                 if (allScores.Count > 0)
                                 {
                                     this.itemcollectionSource.Source = allScores;
@@ -85,8 +85,8 @@ namespace urp
                                 root.Navigate(typeof(MainPage), 1);
                             else
                             {
-                                List<AllScore> allScores = new List<AllScore>();
-                                urpUtil.getBadScoreList(allScores, bujigehtml);
+                                List<AllScore> allScores = urpUtil.getBadScoreList(bujigehtml);
+
                                 if (allScores.Count > 0)
                                 {
                                     this.itemcollectionSource.Source = allScores;

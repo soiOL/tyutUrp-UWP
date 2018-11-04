@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
@@ -57,6 +58,10 @@ namespace urp
                 {
                     root.Navigate(typeof(MainPage), 1);
                 }
+            }
+            catch (COMException)
+            {
+                root.Navigate(typeof(MainPage), 1);
             }
             catch (Exception exception)
             {
