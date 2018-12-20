@@ -39,7 +39,7 @@ namespace urp.Util
         //不及格成绩
         public readonly static string URL_BJG = "gradeLnAllAction.do?type=ln&oper=bjg";
         //通知公告
-        public readonly static string URL_TZGG = "detail.asp?bigid=7&Page=";
+        public readonly static string URL_TZGG = "tzgg.htm";
         //jwc网站
         public readonly static string URL_JWC = "http://jwc.tyut.edu.cn/";
         //评教列表

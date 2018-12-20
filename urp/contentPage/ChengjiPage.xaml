@@ -41,7 +41,7 @@
                     <SemanticZoom x:Name="SemanticZoom1">
                         <!--放大视图-->
                         <SemanticZoom.ZoomedInView>
-                            <controls:AdaptiveGridView SelectionMode="None" x:Name="InListView1" Background="{ThemeResource SystemControlAcrylicWindowBrush}" DesiredWidth="500" StretchContentForSingleRow="True">
+                            <controls:AdaptiveGridView SelectionMode="None" x:Name="InListView1" Background="{ThemeResource SystemControlAcrylicWindowBrush}" DesiredWidth="450" StretchContentForSingleRow="True">
                                 <!--分组控件-->
                                 <GridView.GroupStyle>
                                     <GroupStyle>
@@ -110,7 +110,7 @@
                     <SemanticZoom x:Name="SemanticZoom2">
                         <!--放大视图-->
                         <SemanticZoom.ZoomedInView>
-                            <controls:AdaptiveGridView SelectionMode="None" x:Name="InListView2" Background="{ThemeResource SystemControlAcrylicWindowBrush}" DesiredWidth="500" StretchContentForSingleRow="True">
+                            <controls:AdaptiveGridView SelectionMode="None" x:Name="InListView2" Background="{ThemeResource SystemControlAcrylicWindowBrush}" DesiredWidth="450" StretchContentForSingleRow="True">
                                 <!--分组控件-->
                                 <GridView.GroupStyle>
                                     <GroupStyle>

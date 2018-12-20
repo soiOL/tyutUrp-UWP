@@ -114,6 +114,12 @@
     <Compile Include="contentPage\KebiaoPage.xaml.cs">
       <DependentUpon>KebiaoPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="contentPage\MainViewPage.xaml.cs">
+      <DependentUpon>MainViewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="contentPage\NotifyPage.xaml.cs">
+      <DependentUpon>NotifyPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="contentPage\XinxiPage.xaml.cs">
       <DependentUpon>XinxiPage.xaml</DependentUpon>
     </Compile>
@@ -144,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\andriod.png" />
+    <Content Include="Assets\DefaultUserImage.png" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-125.png" />
     <Content Include="Assets\LargeTile.scale-150.png" />
@@ -218,6 +225,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="contentPage\KebiaoPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="contentPage\MainViewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="contentPage\NotifyPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

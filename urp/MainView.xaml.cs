@@ -38,31 +38,12 @@ namespace urp
         }
 
         //页面打开时
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-             await GetTitleText();
+            contentFrame.Navigate(typeof(MainViewPage));
         }
 
-        private async Task GetTitleText()
-        {
-            var urpUtil = new UrpUtil();
-            var map = new Dictionary<string, string>();
-            int result = await urpUtil.GetUserInfo(map);
-            if (result == SUCCESS)
-            {
-                MainNavigation.Header = "你好，" + map["姓名:"];
-                TitleText.Text = "你好，" + map["姓名:"];
-            }
-            else if (result == FAIL)
-            {
-                MainNavigation.Header = "你好，同学";
-                TitleText.Text = "你好，同学";
-            }
-            else
-            {
-                root.Navigate(typeof(MainPage));
-            }
-        }
+        
 
         private void Gerenxinxi_OnTapped(object sender, TappedRoutedEventArgs e)
         {
@@ -101,6 +82,16 @@ namespace urp
         private void About_OnTapped(object sender, TappedRoutedEventArgs e)
         {
             contentFrame.Navigate(typeof(AboutPage));
+        }
+
+        private void MainItem_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            contentFrame.Navigate(typeof(MainViewPage));
+        }
+
+        private void NotifyItem_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            contentFrame.Navigate(typeof(NotifyPage));
         }
     }
 }

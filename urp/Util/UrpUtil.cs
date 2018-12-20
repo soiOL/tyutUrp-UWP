@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Windows.Storage;
+using Windows.UI.Xaml.Media.Imaging;
 using HtmlAgilityPack;
 using Newtonsoft.Json;
 using urp.Struct;
@@ -34,6 +36,13 @@ namespace urp.Util
             value = value.Replace("&nbsp;", "");
             value = value.Trim();
             return value;
+        }
+
+        //获取学籍照片
+        public async Task<BitmapImage> GetUserImage()
+        {
+            var userImage = await webUtil.GetImage(new Uri(UrpApi2.URL + UrpApi2.URL_ZP));
+            return userImage;
         }
 
         //获取学籍信息
@@ -386,6 +395,84 @@ namespace urp.Util
                 Console.WriteLine(e);
                 return FAIL;
             }
+        }
+
+        //获取公告列表
+        public async Task<Dictionary<string,string>> GetNotifyList()
+        {
+            try
+            {
+                var html = await webUtil.GetString(UrpApi2.URL_JWC + UrpApi2.URL_TZGG);
+                var doc = new HtmlDocument();
+                doc.LoadHtml(html);
+                var gonggao = doc.DocumentNode.SelectNodes("//span[@class='n']");
+                if (gonggao.Count > 0)
+                {
+                    var head = new StringBuilder();
+                    string link = "";
+                    var dictonary = new Dictionary<string, string>();
+                    for (int i = 0; i < gonggao.Count; i++)
+                    {
+                        if (i % 2 == 0)
+                        {
+                            var a = gonggao[i].ChildNodes[0];
+                            head.Append(a.InnerText);
+                            link = a.GetAttributeValue("href", "");
+                        }
+                        else
+                        {
+                            head.Append("(" + gonggao[i].InnerText + ")");
+                            dictonary.Add(head.ToString(), link);
+                            head.Clear();
+                        }
+                    }
+
+                    return dictonary;
+                }
+
+                return null;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return null;
+            }
+            
+        }
+
+        //获取详细公告
+        public async Task<string> GetNotifyContent(string url)
+        {
+            try
+            {
+                string html = await webUtil.GetString(url);
+                StringBuilder valueBuilder = new StringBuilder("\n");
+                var doc = new HtmlDocument();
+                doc.LoadHtml(html);
+                var contentNode = doc.DocumentNode.SelectSingleNode("//div[@id='vsb_content']");
+                var ps = contentNode.SelectNodes(".//p");
+                foreach (var p in ps)
+                {
+                    var text = getRealString(p.InnerText);
+                    if (!string.IsNullOrWhiteSpace(text))
+                    {
+                        valueBuilder.Append(text);
+                        valueBuilder.Append("\n");
+                    }
+                }
+
+                valueBuilder.Append("\n");
+                var value = valueBuilder.ToString();
+                Regex regex = new Regex("<!--.*-->");
+                value = regex.Replace(value, "");
+                return value;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return null;
+            }
+            
         }
     }
 }
