@@ -38,12 +38,19 @@ namespace urp.contentPage
         {
             List<Head> headList = new List<Head>();
             gonggaoD = await urpUtil.GetNotifyList();
-            foreach (var kv in gonggaoD)
+            if (gonggaoD != null)
             {
-                headList.Add(new Head(){value = kv.Key});
-            }
+                foreach (var kv in gonggaoD)
+                {
+                    headList.Add(new Head() { value = kv.Key });
+                }
 
-            ListView.ItemsSource = headList;
+                ListView.ItemsSource = headList;
+            }
+            else
+            {
+                Notification.Show("获取公告列表失败，请重试",3000);
+            }
         }
 
         private async void Expander_OnExpanded(object sender, EventArgs e)
@@ -51,11 +58,18 @@ namespace urp.contentPage
             Expander expander = (Expander) sender;
             string link = gonggaoD[expander.Header.ToString()];
             string content = await urpUtil.GetNotifyContent(UrpApi2.URL_JWC + link);
-            TextBlock contentText = new TextBlock();
-            contentText.Text = content;
-            contentText.Margin = new Thickness(20.0,0,20.0,0);
-            contentText.TextWrapping = TextWrapping.Wrap;
-            expander.Content = contentText;
+            if (!string.IsNullOrWhiteSpace(content))
+            {
+                TextBlock contentText = new TextBlock();
+                contentText.Text = content;
+                contentText.Margin = new Thickness(20.0, 0, 20.0, 0);
+                contentText.TextWrapping = TextWrapping.Wrap;
+                expander.Content = contentText;
+            }
+            else
+            {
+                Notification.Show("获取公告详情失败，请重试",3000);
+            }
         }
     }
 

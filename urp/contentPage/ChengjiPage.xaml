@@ -24,9 +24,9 @@
                 <Setter Property="Foreground" Value="DodgerBlue"></Setter>
             </Style>
             <Style x:Key="BorderStyle" TargetType="Border">
-                <Setter Property="BorderThickness" Value="2,2,2,2" ></Setter>
-                <Setter Property="BorderBrush" Value="LightGray" ></Setter>
-                <Setter Property="Background" Value="WhiteSmoke"></Setter>
+                <Setter Property="BorderThickness" Value="4,4,4,4" ></Setter>
+                <Setter Property="BorderBrush" Value="WhiteSmoke" ></Setter>
+                <Setter Property="Background" Value="White"></Setter>
             </Style>
         </Grid.Resources>
         <Pivot x:Name="Pivot1" SelectionChanged="Pivot1_SelectionChanged"  >

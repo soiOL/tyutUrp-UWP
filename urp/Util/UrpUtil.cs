@@ -474,5 +474,65 @@ namespace urp.Util
             }
             
         }
+
+        //登录一卡通
+        public async Task<int> LoginEcard()
+        {
+            try
+            {
+                string userName = (string)localSettings.Values["userName"];
+                string passWord = (string)localSettings.Values[userName];
+                string result = await webUtil.GetString(UrpApi2.URL_ECARD_LOGIN + "?stucode="+userName+"&stupsw="+passWord);
+                if (result.Contains("0000") || result.Contains("9999"))
+                {
+                    return SUCCESS;
+                }
+                if(result.Contains("0004"))
+                {
+                    return FAIL;
+                }
+                return TIMEOUT;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return TIMEOUT;
+            }
+        }
+
+        //获取一卡通余额
+        public async Task<string> GetMoney()
+        {
+            try
+            {
+                string userName = (string)localSettings.Values["userName"];
+                string result = await webUtil.GetString(UrpApi2.URL_ECARD_MONEY + "?stucode="+userName);
+                EcardInfo ecardInfo = JsonConvert.DeserializeObject<EcardInfo>(result);
+                return ecardInfo.value[0].balance;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return null;
+            }
+        }
+
+        //获取一卡通账单
+        public async Task<List<Value>> GetMoneyList(string StartDate, string EndDate)
+        {
+            try
+            {
+                string userName = (string)localSettings.Values["userName"];
+                string result = await webUtil.GetString(UrpApi2.URL_ECARD_SEARCH + "?stucode=" + userName + "&startdate=" + StartDate + "&enddate=" + EndDate);
+                MoneyInfo moneyInfo = JsonConvert.DeserializeObject<MoneyInfo>(result);
+                return moneyInfo.value;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            
+        }
     }
 }

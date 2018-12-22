@@ -12,26 +12,29 @@
         <Rectangle  Fill="{ThemeResource SystemControlAcrylicWindowBrush}"/>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
-                <StackPanel Margin="0,50,0,50" Background="White" >
-                    <StackPanel Margin="10,10,10,10">
-                        <TextBlock Text="简教UWP" HorizontalAlignment="Center"  Style="{StaticResource TitleTextBlockStyle}" FontSize="48" FontFamily="Microsoft YaHei Light"/>
-                        <Border BorderThickness="5,5,5,5" BorderBrush="WhiteSmoke">
-                            <Grid Background="#64b5f6">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="3*"></ColumnDefinition>
-                                    <ColumnDefinition Width="5*"></ColumnDefinition>
-                                    <ColumnDefinition Width="3*"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <Image MaxHeight="400" Grid.Column="1" Source="../Assets/logo2.png" Stretch="Uniform"/>
-                            </Grid>
-                        </Border>
-                        <TextBlock Text="Version: 1.1.2" Style="{StaticResource CaptionTextBlockStyle}"/>
-                        <HyperlinkButton Margin="0,10,0,0" Content="项目开源地址" NavigateUri="https://github.com/soiOL/tyutUrp-UWP"/>
-                        <HyperlinkButton Content="本人博客" NavigateUri="https://soiol.cn"/>
-                        <HyperlinkButton Content="友情链接" NavigateUri="https://risid.com"/>
-                    </StackPanel>
+                <Border Margin="0,50,0,50" BorderBrush="WhiteSmoke" BorderThickness="5,5,5,5" >
+                    <StackPanel  Background="White" >
+                        <StackPanel Margin="10,10,10,10">
+                            <TextBlock Text="简教UWP" HorizontalAlignment="Center"  Style="{StaticResource TitleTextBlockStyle}" FontSize="48" FontFamily="Microsoft YaHei Light"/>
+                            <Border BorderThickness="5,5,5,5" BorderBrush="LightGray">
+                                <Grid Background="#64b5f6">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                                        <ColumnDefinition Width="5*"></ColumnDefinition>
+                                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Image MaxHeight="400" Grid.Column="1" Source="../Assets/logo2.png" Stretch="Uniform"/>
+                                </Grid>
+                            </Border>
+                            <TextBlock Text="Version: 1.1.4" Style="{StaticResource CaptionTextBlockStyle}"/>
+                            <HyperlinkButton Margin="0,10,0,0" Content="项目开源地址" NavigateUri="https://github.com/soiOL/tyutUrp-UWP"/>
+                            <HyperlinkButton Content="本人博客" NavigateUri="https://soiol.cn"/>
+                            <HyperlinkButton Content="友情链接" NavigateUri="https://risid.com"/>
+                        </StackPanel>
 
-                </StackPanel>
+                    </StackPanel>
+                </Border>
+                
             </StackPanel>
         </ScrollViewer>
         

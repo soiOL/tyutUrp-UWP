@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Popups;
@@ -75,6 +77,7 @@ namespace urp
             IUICommand result = await message.ShowAsync();
             if (result.Id as string == "退出")
             {
+                EcardPage.IsLogin = false;
                 root.Navigate(typeof(MainPage));
             }
         }
@@ -92,6 +95,12 @@ namespace urp
         private void NotifyItem_OnTapped(object sender, TappedRoutedEventArgs e)
         {
             contentFrame.Navigate(typeof(NotifyPage));
+        }
+
+        private void EcardItem_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            contentFrame.Navigate(typeof(EcardPage));
+
         }
     }
 }

@@ -50,9 +50,16 @@ namespace urp
         //页面打开时
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (e.Parameter != null && e.Parameter.ToString().Equals("1"))
+            if (e.Parameter != null)
             {
-                LoginNotification.Show("登陆过期，请重新登陆",3000);
+                if (e.Parameter.ToString().Equals("1"))
+                {
+                    LoginNotification.Show("登陆过期，请重新登陆", 3000);
+                }
+                else if(e.Parameter.ToString().Equals("0"))
+                {
+                    await getCheckCode();
+                }
             }
             if (localSettings.Values["isSave"] != null)
             {
@@ -219,6 +226,10 @@ namespace urp
                 {
                     localSettings.Values["userName"] = user.userName;
                     localSettings.Values["passWord"] = user.passWord;
+                    if (localSettings.Values[user.userName] == null)
+                    {
+                        localSettings.Values[user.userName] = "123456";
+                    }
                     if (IsSaveBox.IsChecked == true)
                     {
                         localSettings.Values["isSave"] = true;

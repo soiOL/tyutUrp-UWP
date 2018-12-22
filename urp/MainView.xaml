@@ -16,6 +16,11 @@
                 <NavigationViewItem Name="gerenxinxi" Tapped="Gerenxinxi_OnTapped" Icon="PreviewLink"  Content="个人信息" Tag="个人信息" />
                 <NavigationViewItem Name="chengji" Tapped="Chengji_OnTapped" Icon="AllApps" Content="成绩" Tag="成绩" />
                 <NavigationViewItem Name="jidian" Tapped="Jidian_OnTapped" Icon="ContactInfo" Content="学分绩点" Tag="学分绩点" />
+                <NavigationViewItem Name="EcardItem" Content="学生卡账单" Tapped="EcardItem_OnTapped" >
+                    <NavigationViewItem.Icon>
+                        <BitmapIcon UriSource="Assets/Money.ico"></BitmapIcon>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
                 <NavigationViewItem Name="kebiao" Tapped="Kebiao_OnTapped" Icon="CalendarWeek" Content="课表" Tag="课表" />
                 <NavigationViewItem Name="About" Tapped="About_OnTapped" Icon="Like" Content="关于"/>
                 <!--<NavigationViewItem Icon="TouchPointer" Content="一键评教" Tag="一键评教" />-->

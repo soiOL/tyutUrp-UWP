@@ -48,5 +48,25 @@ namespace urp.Util
         public readonly static string URL_JXPG = "jxpgXsAction.do?oper=wjpg";
         //评估页面
         public readonly static string URL_PG = "jxpgXsAction.do";
+        
+        //学生卡记录查询
+            //加载页面(参数：terminal:Android ，POST方法)
+        public readonly static string URL_ECARD_PREPARE =
+            "http://111.231.107.11:18001/card/cardClientService/getLoadingPage.ib";
+            //登录URL(参数：stucode: ,stupsw:默认123456 ,GET方法)
+        public static string URL_ECARD_LOGIN = "http://202.207.245.234:9090/1001.json";
+            //查询流水URL(参数：stucode: ,startdate: 2018-12-15 ,enddate: , GET方法)
+        public static string URL_ECARD_SEARCH = "http://202.207.245.234:9090/0005.json";
+            //查询余额URL(参数：stucode:, GET方法)
+        public static string URL_ECARD_MONEY = "http://202.207.245.234:9090/0002.json";
+
+        public static string StuCode = "";
+
+        public static string StuPsw = "";
+
+        public static string StartDate = "";
+
+        public static string EndDate = "";
+
     }
 }
