@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -22,9 +23,25 @@ namespace urp.contentPage
     /// </summary>
     public sealed partial class AboutPage : Page
     {
+
+        private Frame root = Window.Current.Content as Frame;
         public AboutPage()
         {
             this.InitializeComponent();
+        }
+
+        private async void LogOut_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            var message = new MessageDialog("是否登出账号");
+            message.Commands.Add(new UICommand("确定", cmd => { }, "退出"));
+            message.Commands.Add(new UICommand("取消", cmd => { }));
+            message.DefaultCommandIndex = 1;
+            message.CancelCommandIndex = 1;
+            IUICommand result = await message.ShowAsync();
+            if (result.Id as string == "退出" && root.CanGoBack)
+            {
+                root.GoBack();
+            }
         }
     }
 }

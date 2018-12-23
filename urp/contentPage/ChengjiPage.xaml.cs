@@ -69,7 +69,7 @@ namespace urp
                                 else
                                 {
                                     SemanticZoom1.Visibility = Visibility.Collapsed;
-                                    NoImage1.Source = new BitmapImage(new Uri("ms-appx:///Assets/null.png"));
+                                    NoImage1.Source = new BitmapImage(new Uri("ms-appx:///Assets/InfoImage/null.png"));
                                     NoTextBlock1.Text = "新同学！还没有成绩呢，去别处看看吧！";
                                 }
                                 isFirst = false;    
@@ -96,7 +96,7 @@ namespace urp
                                 else
                                 {
                                     SemanticZoom2.Visibility = Visibility.Collapsed;
-                                    NoImage2.Source = new BitmapImage(new Uri("ms-appx:///Assets/nobad.png"));
+                                    NoImage2.Source = new BitmapImage(new Uri("ms-appx:///Assets/InfoImage/nobad.png"));
                                     NoTextBlock2.Text = "没有挂科呢！奖励一朵小红花！";
                                 }
                                 isFirst2 = false;

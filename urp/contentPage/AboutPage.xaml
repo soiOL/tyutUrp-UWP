@@ -23,7 +23,7 @@
                                         <ColumnDefinition Width="5*"></ColumnDefinition>
                                         <ColumnDefinition Width="3*"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <Image MaxHeight="400" Grid.Column="1" Source="../Assets/logo2.png" Stretch="Uniform"/>
+                                    <Image MaxHeight="400" Grid.Column="1" Source="../Assets/InfoImage/logo2.png" Stretch="Uniform"/>
                                 </Grid>
                             </Border>
                             <TextBlock Text="Version: 1.1.4" Style="{StaticResource CaptionTextBlockStyle}"/>
@@ -37,7 +37,12 @@
                 
             </StackPanel>
         </ScrollViewer>
-        
-
+        <CommandBar VerticalAlignment="Bottom" DefaultLabelPosition="Bottom" Background="WhiteSmoke">
+            <AppBarButton x:Name="LogOut" Label="注销登录" Tapped="LogOut_OnTapped">
+                <AppBarButton.Icon>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE711;"/>
+                </AppBarButton.Icon>
+            </AppBarButton>
+        </CommandBar>
     </Grid>
 </Page>

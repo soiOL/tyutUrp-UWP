@@ -8,25 +8,43 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Rectangle  Fill="{ThemeResource SystemControlAcrylicWindowBrush}"/>
-        <NavigationView IsSettingsVisible="False" IsPaneOpen="False" AlwaysShowHeader="False" Windows10version1803:IsBackButtonVisible="Collapsed" Header="简教UWP " x:Name="MainNavigation" >
+        <NavigationView ItemInvoked="MainNavigation_OnItemInvoked"  IsSettingsVisible="True" IsPaneOpen="False" AlwaysShowHeader="False" Windows10version1803:IsBackButtonVisible="Collapsed" Header="简教UWP " x:Name="MainNavigation" >
             <NavigationView.MenuItems>
-                <NavigationViewItem Name="MainItem" Tapped="MainItem_OnTapped" Icon="Home" Content="主页" Tag="主页"/>
-                <NavigationViewItem Name="NotifyItem" Tapped="NotifyItem_OnTapped"  Icon="Mail" Content="教务公告" Tag="教务公告"/>
-                <NavigationViewItem Name="gerenxinxi" Tapped="Gerenxinxi_OnTapped" Icon="PreviewLink"  Content="个人信息" Tag="个人信息" />
-                <NavigationViewItem Name="chengji" Tapped="Chengji_OnTapped" Icon="AllApps" Content="成绩" Tag="成绩" />
-                <NavigationViewItem Name="jidian" Tapped="Jidian_OnTapped" Icon="ContactInfo" Content="学分绩点" Tag="学分绩点" />
-                <NavigationViewItem Name="EcardItem" Content="学生卡账单" Tapped="EcardItem_OnTapped" >
+                <NavigationViewItem Name="MainItem" Content="主页" Tag="主页" IsSelected="True">
                     <NavigationViewItem.Icon>
-                        <BitmapIcon UriSource="Assets/Money.ico"></BitmapIcon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE10F;" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem Name="kebiao" Tapped="Kebiao_OnTapped" Icon="CalendarWeek" Content="课表" Tag="课表" />
-                <NavigationViewItem Name="About" Tapped="About_OnTapped" Icon="Like" Content="关于"/>
-                <!--<NavigationViewItem Icon="TouchPointer" Content="一键评教" Tag="一键评教" />-->
-                <NavigationViewItemSeparator/>
-                <NavigationViewItem  Name="dengchu" Icon="Cancel" Tapped="Dengchu_OnTapped" Content="登出" Tag="登出" />
-                
+                <NavigationViewItem Name="NotifyItem" Content="教务公告" Tag="教务公告">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8F2;"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem Name="XinxiItem" Content="个人信息" Tag="个人信息">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE13D;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem Name="ChengjiItem" Content="成绩" Tag="成绩">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEADF;"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem Name="JidianItem" Content="学分绩点" Tag="学分绩点">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7BE;"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem Name="EcardItem" Content="学生卡账单" >
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8C7;"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem Name="KebiaoItem" Content="课表" Tag="课表">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE787;"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
             </NavigationView.MenuItems>
             <Frame x:Name="contentFrame">
                 

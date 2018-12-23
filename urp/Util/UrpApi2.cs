@@ -16,8 +16,10 @@ namespace urp.Util
         public static string DEFAULTSTUURL = "http://202.207.247.60/";
         //    public static String URL3 = "http://202.207.247.44:8065/";
         //    public static String URL4 = "http://202.207.247.44:8069/";
-        //login
+        //登录urp
         public readonly static string URL_LOGIN = "loginAction.do";
+        //注销登录
+        public readonly static string URL_LOGOUT = "logout.do";
         public readonly static string URL_LOGINSTU = "Hander/LoginAjax.ashx";
         //学籍信息
         public readonly static string URL_XJXX = "xjInfoAction.do?oper=xjxx";

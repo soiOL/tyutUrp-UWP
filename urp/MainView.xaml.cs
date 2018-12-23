@@ -30,10 +30,6 @@ namespace urp
     /// </summary>
     public sealed partial class MainView : Page
     {
-        private static readonly int SUCCESS = 1;
-        private static readonly int TIMEOUT = 0;
-        private static readonly int FAIL = -1;
-        private Frame root = Window.Current.Content as Frame;
         public MainView()
         {
             this.InitializeComponent();
@@ -43,64 +39,44 @@ namespace urp
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             contentFrame.Navigate(typeof(MainViewPage));
+            MainItem.IsSelected = true;
         }
-
         
-
-        private void Gerenxinxi_OnTapped(object sender, TappedRoutedEventArgs e)
+        private void MainNavigation_OnItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
         {
-            contentFrame.Navigate(typeof(XinxiPage));
-        }
-
-        private void Chengji_OnTapped(object sender, TappedRoutedEventArgs e)
-        {
-            contentFrame.Navigate(typeof(ChengjiPage));
-        }
-
-        private void Jidian_OnTapped(object sender, TappedRoutedEventArgs e)
-        {
-            contentFrame.Navigate(typeof(JidianPage));
-        }
-
-        private void Kebiao_OnTapped(object sender, TappedRoutedEventArgs e)
-        {
-            contentFrame.Navigate(typeof(KebiaoPage));
-        }
-
-        private async void Dengchu_OnTapped(object sender, TappedRoutedEventArgs e)
-        {
-            var message = new MessageDialog("是否登出账号");
-            message.Commands.Add(new UICommand("确定", cmd => { }, "退出"));
-            message.Commands.Add(new UICommand("取消", cmd => { }));
-            message.DefaultCommandIndex = 1;
-            message.CancelCommandIndex = 1;
-            IUICommand result = await message.ShowAsync();
-            if (result.Id as string == "退出")
+            if (args.InvokedItem.Equals("主页"))
             {
-                EcardPage.IsLogin = false;
-                root.Navigate(typeof(MainPage));
+                contentFrame.Navigate(typeof(MainViewPage));
             }
-        }
+            if (args.InvokedItem.Equals("教务公告"))
+            {
+                contentFrame.Navigate(typeof(NotifyPage));
+            }
+            if (args.InvokedItem.Equals("个人信息"))
+            {
+                contentFrame.Navigate(typeof(XinxiPage));
+            }
+            if (args.InvokedItem.Equals("成绩"))
+            {
+                contentFrame.Navigate(typeof(ChengjiPage));
+            }
+            if (args.InvokedItem.Equals("学分绩点"))
+            {
+                contentFrame.Navigate(typeof(JidianPage));
+            }
+            if (args.InvokedItem.Equals("课表"))
+            {
+                contentFrame.Navigate(typeof(KebiaoPage));
+            }
+            if (args.InvokedItem.Equals("学生卡账单"))
+            {
+                contentFrame.Navigate(typeof(EcardPage));
+            }
 
-        private void About_OnTapped(object sender, TappedRoutedEventArgs e)
-        {
-            contentFrame.Navigate(typeof(AboutPage));
-        }
-
-        private void MainItem_OnTapped(object sender, TappedRoutedEventArgs e)
-        {
-            contentFrame.Navigate(typeof(MainViewPage));
-        }
-
-        private void NotifyItem_OnTapped(object sender, TappedRoutedEventArgs e)
-        {
-            contentFrame.Navigate(typeof(NotifyPage));
-        }
-
-        private void EcardItem_OnTapped(object sender, TappedRoutedEventArgs e)
-        {
-            contentFrame.Navigate(typeof(EcardPage));
-
+            if (args.IsSettingsInvoked)
+            {
+                contentFrame.Navigate(typeof(AboutPage));
+            }
         }
     }
 }

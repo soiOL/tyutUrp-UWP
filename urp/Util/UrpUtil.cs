@@ -38,6 +38,15 @@ namespace urp.Util
             return value;
         }
 
+        //注销登录urp教务系统
+        public async void LogOut()
+        {
+            List<KeyValuePair<string, string>> paramList = new List<KeyValuePair<string, string>>();
+            paramList.Clear();
+            paramList.Add(new KeyValuePair<string, string>("loginType", "platformLogin"));
+            await webUtil.PostString(UrpApi2.URL + UrpApi2.URL_LOGOUT,paramList);
+        }
+
         //获取学籍照片
         public async Task<BitmapImage> GetUserImage()
         {

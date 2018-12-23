@@ -46,7 +46,13 @@ namespace urp.contentPage
         }
 
         //页面打开时
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            MainGet();
+        }
+        
+        //登录获取数据
+        private async void MainGet()
         {
             int status = TIMEOUT;
             if (!IsLogin)
@@ -76,10 +82,9 @@ namespace urp.contentPage
                 Ring2.IsActive = false;
                 Ring3.IsActive = false;
                 Ring4.IsActive = false;
-                Notification.Show("获取信息失败,请重试",3000);
+                Notification.Show("获取信息失败,请重试", 3000);
             }
         }
-        
 
         private void GetInfo()
         {
@@ -247,7 +252,7 @@ namespace urp.contentPage
         private void ContentDialog_OnPrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             localSettings.Values[(string)localSettings.Values["userName"]] = PassWordBox.Password;
-            GetInfo();
+            MainGet();
         }
 
         //下拉自动获取更多数据
@@ -255,14 +260,22 @@ namespace urp.contentPage
         {
             lock (o)
             {
-                if (!IsAllLoaded && !IsLoadingList)
+                if (!IsAllLoaded)
                 {
-                    if (GridView.Items != null && args.ItemIndex == GridView.Items.Count - 1)
+                    if (!IsLoadingList)
                     {
-                        IsLoadingList = true;
-                        Thread getListThread = new Thread(GetMoneyListDelegate);
-                        getListThread.Start();
+                        if (GridView.Items != null && args.ItemIndex == GridView.Items.Count - 1)
+                        {
+                            IsLoadingList = true;
+                            Thread getListThread = new Thread(GetMoneyListDelegate);
+                            getListThread.Start();
+                        }
                     }
+                }
+                else
+                {
+                    //获取完数据后取消自动获取事件
+                    GridView.ContainerContentChanging -= GridView_ContainerContentChanging;
                 }
             }
         }

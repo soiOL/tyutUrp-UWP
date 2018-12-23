@@ -20,6 +20,7 @@ using HtmlAgilityPack;
 using Microsoft.Toolkit.Extensions;
 using Microsoft.Toolkit.Uwp.UI.Extensions;
 using Newtonsoft.Json;
+using urp.contentPage;
 using urp.Struct;
 using urp.Util;
 
@@ -61,6 +62,7 @@ namespace urp
                     await getCheckCode();
                 }
             }
+            EcardPage.IsLogin = false;
             if (localSettings.Values["isSave"] != null)
             {
                 bool isSave = (bool)localSettings.Values["isSave"];
@@ -257,7 +259,7 @@ namespace urp
                     }
                     else
                     {
-                        LoginNotification.Show("连接超时，请重试", 3000);
+                        LoginNotification.Show("数据库忙，请重试", 3000);
                     }
                     await getCheckCode();
                 }
