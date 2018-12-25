@@ -10,40 +10,21 @@
     <Grid>
         <NavigationView ItemInvoked="MainNavigation_OnItemInvoked"  IsSettingsVisible="True" IsPaneOpen="False" AlwaysShowHeader="False" Windows10version1803:IsBackButtonVisible="Collapsed" Header="简教UWP " x:Name="MainNavigation" >
             <NavigationView.MenuItems>
-                <NavigationViewItem Name="MainItem" Content="主页" Tag="主页" IsSelected="True">
-                    <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE10F;" />
-                    </NavigationViewItem.Icon>
+                <NavigationViewItem Name="MainItem" Content="主页" Icon="Home" Tag="主页" IsSelected="True">
                 </NavigationViewItem>
-                <NavigationViewItem Name="NotifyItem" Content="教务公告" Tag="教务公告">
-                    <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8F2;"/>
-                    </NavigationViewItem.Icon>
+                <NavigationViewItem Name="NotifyItem" Content="教务公告" Icon="Mail" Tag="教务公告">
                 </NavigationViewItem>
-                <NavigationViewItem Name="XinxiItem" Content="个人信息" Tag="个人信息">
-                    <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE13D;" />
-                    </NavigationViewItem.Icon>
+                <NavigationViewItem Name="XinxiItem" Content="个人信息" Icon="Contact" Tag="个人信息">
                 </NavigationViewItem>
-                <NavigationViewItem Name="ChengjiItem" Content="成绩" Tag="成绩">
-                    <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEADF;"/>
-                    </NavigationViewItem.Icon>
+                <NavigationViewItem Name="ChengjiItem" Content="成绩" Icon="Bullets" Tag="成绩">
                 </NavigationViewItem>
-                <NavigationViewItem Name="JidianItem" Content="学分绩点" Tag="学分绩点">
-                    <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7BE;"/>
-                    </NavigationViewItem.Icon>
+                <NavigationViewItem Name="JidianItem" Content="学分绩点" Icon="Library" Tag="学分绩点">
                 </NavigationViewItem>
-                <NavigationViewItem Name="EcardItem" Content="学生卡账单" >
-                    <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8C7;"/>
-                    </NavigationViewItem.Icon>
+                <NavigationViewItem Name="EcardItem" Content="学生卡账单" Icon="Shop" Tag="学生卡账单" >
                 </NavigationViewItem>
-                <NavigationViewItem Name="KebiaoItem" Content="课表" Tag="课表">
-                    <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE787;"/>
-                    </NavigationViewItem.Icon>
+                <NavigationViewItem Name="PingjiaoItem" Content="一键评教" Icon="TouchPointer" Tag="一件评教">
+                </NavigationViewItem>
+                <NavigationViewItem Name="KebiaoItem" Content="课表" Icon="CalendarWeek" Tag="课表">
                 </NavigationViewItem>
             </NavigationView.MenuItems>
             <Frame x:Name="contentFrame">

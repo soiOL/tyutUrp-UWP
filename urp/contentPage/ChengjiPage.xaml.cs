@@ -83,6 +83,8 @@ namespace urp
                             string bujigehtml = await urpUtil.getBadScore();
                             if (bujigehtml.Contains("SESSION"))
                                 root.Navigate(typeof(MainPage), 1);
+                            if(bujigehtml.Contains("PINGJIAO"))
+                                Notification.Show("未完成评教，无法查看，请先进行评教",3000);
                             else
                             {
                                 List<AllScore> allScores = urpUtil.getBadScoreList(bujigehtml);

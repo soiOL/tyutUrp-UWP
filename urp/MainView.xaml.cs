@@ -73,6 +73,10 @@ namespace urp
                 contentFrame.Navigate(typeof(EcardPage));
             }
 
+            if (args.InvokedItem.Equals("一键评教"))
+            {
+                contentFrame.Navigate(typeof(PingguPage));
+            }
             if (args.IsSettingsInvoked)
             {
                 contentFrame.Navigate(typeof(AboutPage));

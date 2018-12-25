@@ -9,6 +9,7 @@ using Windows.Storage;
 using Windows.UI.Xaml.Media.Imaging;
 using HtmlAgilityPack;
 using Newtonsoft.Json;
+using urp.contentPage;
 using urp.Struct;
 
 namespace urp.Util
@@ -205,6 +206,11 @@ namespace urp.Util
                 rgx = new Regex("border=\"0\".*((class=\"titleTop2\")|(id=\"user\"))");
                 result = rgx.Replace(result, "border=\"1\"");
                 return result;
+            }
+
+            if (result.Contains("评估"))
+            {
+                return "PINGJIAO";
             }
             return "SESSION";
         }
@@ -540,6 +546,102 @@ namespace urp.Util
             {
                 Console.WriteLine(e);
                 throw;
+            }
+            
+        }
+
+        //获取评估列表
+        public async Task<List<PG>> getPlist()
+        {
+            List<PG> pgList = new List<PG>();
+            try
+            {
+                string result = await webUtil.GetString(UrpApi2.URL + UrpApi2.URL_JXPG_LIST);
+                var doc = new HtmlDocument();
+                doc.LoadHtml(result);
+                var trs = doc.DocumentNode.SelectNodes("//tr[@class='odd']");
+                if (trs.Count > 0)
+                {
+                    foreach (var tr in trs)
+                    {
+                        var tds = tr.SelectNodes("./td");
+                        string isPfinish = tds[3].InnerText;
+                        if (isPfinish.Equals("否"))
+                        {
+                            var td = tds[4];
+                            var param = td.SelectSingleNode("./img").GetAttributeValue("name", null);
+                            if (!string.IsNullOrEmpty(param))
+                            {
+                                var pgStruct = new PG();
+                                string[] paramStrings = param.Split("#@");
+                                pgStruct.wjbm = paramStrings[0];
+                                pgStruct.bpr = paramStrings[1];
+                                pgStruct.bprm = paramStrings[2];
+                                pgStruct.wjmc = paramStrings[3];
+                                pgStruct.pgnrm = paramStrings[4];
+                                pgStruct.pgnr = paramStrings[5];
+                                pgStruct.oper = "wjShow";
+                                pgStruct.pageSize = "20";
+                                pgStruct.page = "1";
+                                pgStruct.currentPage = "1";
+                                pgList.Add(pgStruct);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            return pgList;
+        } 
+
+        //进行评教
+        public async Task<bool> PingJiao(PG pjStruct,string text)
+        {
+            try
+            {
+                List<KeyValuePair<string, string>> paramList = new List<KeyValuePair<string, string>>();
+                paramList.Clear();
+                paramList.Add(new KeyValuePair<string, string>("wjbm", pjStruct.wjbm));
+                paramList.Add(new KeyValuePair<string, string>("bpr", pjStruct.bpr));
+                paramList.Add(new KeyValuePair<string, string>("pgnr", pjStruct.pgnr));
+                paramList.Add(new KeyValuePair<string, string>("oper", pjStruct.oper));
+                paramList.Add(new KeyValuePair<string, string>("wjmc", pjStruct.wjmc));
+                paramList.Add(new KeyValuePair<string, string>("bprm", pjStruct.bprm));
+                paramList.Add(new KeyValuePair<string, string>("pgnrm", pjStruct.pgnrm));
+                paramList.Add(new KeyValuePair<string, string>("pageSize", pjStruct.pageSize));
+                paramList.Add(new KeyValuePair<string, string>("page", pjStruct.page));
+                paramList.Add(new KeyValuePair<string, string>("currentPage", pjStruct.currentPage));
+                paramList.Add(new KeyValuePair<string, string>("pageNo", ""));
+                string result = await webUtil.PostString(UrpApi2.URL + UrpApi2.URL_PG, paramList);
+                var doc = new HtmlDocument();
+                doc.LoadHtml(result);
+                string title = doc.DocumentNode.SelectSingleNode("//title").InnerText;
+                if (title.Equals("问卷评估页面"))
+                {
+                    paramList.Clear();
+                    paramList.Add(new KeyValuePair<string, string>("wjbm", pjStruct.wjbm));
+                    paramList.Add(new KeyValuePair<string, string>("bpr", pjStruct.bpr));
+                    paramList.Add(new KeyValuePair<string, string>("pgnr", pjStruct.pgnr));
+                    paramList.Add(new KeyValuePair<string, string>("0000000136", "25_0.95"));
+                    paramList.Add(new KeyValuePair<string, string>("0000000137", "25_0.95"));
+                    paramList.Add(new KeyValuePair<string, string>("0000000138", "30_0.95"));
+                    paramList.Add(new KeyValuePair<string, string>("0000000139", "20_0.95"));
+                    paramList.Add(new KeyValuePair<string, string>("zgpj", text));
+                    result = await webUtil.PostString(UrpApi2.URL + UrpApi2.URL_JXPG, paramList);
+                    if (result.Contains("成功"))
+                        return true;
+                    return false;
+                }
+
+                return false;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
             }
             
         }

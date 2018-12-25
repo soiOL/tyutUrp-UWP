@@ -54,6 +54,8 @@ namespace urp
                 {
                     WebView.Navigate(new Uri(UrpApi2.URL + UrpApi2.URL_KB));
                 }
+                else if(result.Contains("评估"))
+                    Notification.Show("未完成评教，无法查看，请先进行评教",3000);
                 else
                 {
                     root.Navigate(typeof(MainPage), 1);

@@ -11,7 +11,7 @@
     <AssemblyName>urp</AssemblyName>
     <DefaultLanguage>zh-CN</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.17134.0</TargetPlatformVersion>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.17763.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -123,6 +123,9 @@
     <Compile Include="contentPage\NotifyPage.xaml.cs">
       <DependentUpon>NotifyPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="contentPage\PingguPage.xaml.cs">
+      <DependentUpon>PingguPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="contentPage\XinxiPage.xaml.cs">
       <DependentUpon>XinxiPage.xaml</DependentUpon>
     </Compile>
@@ -139,6 +142,7 @@
     <Compile Include="Struct\JidianStruct.cs" />
     <Compile Include="Struct\KebiaoStruct.cs" />
     <Compile Include="Struct\MoneyInfo.cs" />
+    <Compile Include="Struct\PG.cs" />
     <Compile Include="Struct\ScoreStruct.cs" />
     <Compile Include="Struct\StuUser.cs" />
     <Compile Include="Util\Secret.cs" />
@@ -243,6 +247,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="contentPage\NotifyPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="contentPage\PingguPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
