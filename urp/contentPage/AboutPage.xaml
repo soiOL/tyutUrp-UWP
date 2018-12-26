@@ -9,21 +9,20 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Rectangle  Fill="{ThemeResource SystemControlAcrylicWindowBrush}"/>
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <ScrollViewer >
             <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
-                <Border Margin="0,50,0,50" BorderBrush="WhiteSmoke" BorderThickness="5,5,5,5" >
-                    <StackPanel  Background="White" >
+                <StackPanel Margin="0,40,0,50" Background="{ThemeResource SystemControlAcrylicWindowBrush}" >
+                    <Border  BorderBrush="LightGray" BorderThickness="5,5,5,5" >
                         <StackPanel Margin="10,10,10,10">
                             <TextBlock Text="简教UWP" HorizontalAlignment="Center"  Style="{StaticResource TitleTextBlockStyle}" FontSize="48" FontFamily="Microsoft YaHei Light"/>
-                            <Border BorderThickness="5,5,5,5" BorderBrush="LightGray">
+                            <Border BorderThickness="5,5,5,5" BorderBrush="Gray">
                                 <Grid Background="#64b5f6">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="3*"></ColumnDefinition>
                                         <ColumnDefinition Width="5*"></ColumnDefinition>
                                         <ColumnDefinition Width="3*"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <Image MaxHeight="400" Grid.Column="1" Source="../Assets/InfoImage/logo2.png" Stretch="Uniform"/>
+                                    <Image MaxHeight="300" Grid.Column="1" Source="../Assets/InfoImage/logo2.png" Stretch="Uniform"/>
                                 </Grid>
                             </Border>
                             <TextBlock Text="Version: 1.1.4" Style="{StaticResource CaptionTextBlockStyle}"/>
@@ -31,13 +30,11 @@
                             <HyperlinkButton Content="本人博客" NavigateUri="https://soiol.cn"/>
                             <HyperlinkButton Content="友情链接" NavigateUri="https://risid.com"/>
                         </StackPanel>
-
-                    </StackPanel>
-                </Border>
-                
+                    </Border>
+                </StackPanel>
             </StackPanel>
         </ScrollViewer>
-        <CommandBar VerticalAlignment="Bottom" DefaultLabelPosition="Bottom" Background="WhiteSmoke">
+        <CommandBar VerticalAlignment="Bottom" DefaultLabelPosition="Bottom" >
             <AppBarButton x:Name="LogOut" Label="注销登录" Tapped="LogOut_OnTapped">
                 <AppBarButton.Icon>
                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE711;"/>

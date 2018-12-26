@@ -9,14 +9,17 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+    <Grid >
         <!--全局的semanticzoom源-->
         <Grid.Resources>
             <CollectionViewSource x:Name="itemcollectionSource" IsSourceGrouped="True" ItemsPath="ScoreList"></CollectionViewSource>
             <Style x:Key="SmallTextBlockStyle" TargetType="TextBlock">
                 <Setter Property="FontSize" Value="15"></Setter>
                 <Setter Property="TextWrapping" Value="Wrap"></Setter>
-                <Setter Property="Foreground" Value="SlateGray"></Setter>
+                <Setter Property="Foreground" Value="Gray"></Setter>
+            </Style>
+            <Style x:Key="TextBlockStyle" TargetType="TextBlock">
+                <Setter Property="TextWrapping" Value="Wrap"></Setter>
             </Style>
             <Style x:Key="HeadTextBlockStyle" TargetType="TextBlock">
                 <Setter Property="FontSize" Value="18"></Setter>
@@ -25,8 +28,8 @@
             </Style>
             <Style x:Key="BorderStyle" TargetType="Border">
                 <Setter Property="BorderThickness" Value="4,4,4,4" ></Setter>
-                <Setter Property="BorderBrush" Value="WhiteSmoke" ></Setter>
-                <Setter Property="Background" Value="White"></Setter>
+                <Setter Property="BorderBrush" Value="LightGray" ></Setter>
+                <Setter Property="Background" Value="{ThemeResource SystemControlAcrylicWindowBrush}"></Setter>
             </Style>
         </Grid.Resources>
         <Pivot x:Name="Pivot1" SelectionChanged="Pivot1_SelectionChanged"  >
@@ -41,7 +44,7 @@
                     <SemanticZoom x:Name="SemanticZoom1">
                         <!--放大视图-->
                         <SemanticZoom.ZoomedInView>
-                            <controls:AdaptiveGridView SelectionMode="None" x:Name="InListView1" Background="{ThemeResource SystemControlAcrylicWindowBrush}" DesiredWidth="450" StretchContentForSingleRow="True">
+                            <controls:AdaptiveGridView SelectionMode="None" x:Name="InListView1"  DesiredWidth="450" StretchContentForSingleRow="True">
                                 <!--分组控件-->
                                 <GridView.GroupStyle>
                                     <GroupStyle>
@@ -66,16 +69,16 @@
                                                     <ColumnDefinition Width="2*"></ColumnDefinition>
                                                 </Grid.ColumnDefinitions>
                                                 <StackPanel VerticalAlignment="Center"  HorizontalAlignment="Left" Grid.Column="0" >
-                                                    <TextBlock Text="{Binding kechengming}" TextWrapping="Wrap" FontSize="17"></TextBlock>
+                                                    <TextBlock Text="{Binding kechengming}" Style="{StaticResource TextBlockStyle}" FontSize="17"></TextBlock>
                                                     <!--<TextBlock Text="{Binding yingwenkechengming}" Style="{StaticResource SmallTextBlockStyle}"></TextBlock>-->
 
                                                 </StackPanel>
                                                 <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="5,0,0,0" HorizontalAlignment="Left" >
-                                                    <TextBlock Text="{Binding xuefen}" Foreground="Black" Style="{StaticResource SmallTextBlockStyle}"></TextBlock>
+                                                    <TextBlock Text="{Binding xuefen}"  FontSize="15" TextWrapping="Wrap"></TextBlock>
                                                     <TextBlock Text="{Binding kechengshuxing}" Style="{StaticResource SmallTextBlockStyle}"></TextBlock>
                                                 </StackPanel>
                                                 <StackPanel Grid.Column="2" VerticalAlignment="Center" Margin="5,0,0,0" HorizontalAlignment="Center" >
-                                                    <TextBlock Text="{Binding chengji}" TextWrapping="Wrap" FontSize="30"></TextBlock>
+                                                    <TextBlock Text="{Binding chengji}" Style="{StaticResource TextBlockStyle}" FontSize="30"></TextBlock>
                                                 </StackPanel>
                                             </Grid>
                                         </Border>
@@ -110,7 +113,7 @@
                     <SemanticZoom x:Name="SemanticZoom2">
                         <!--放大视图-->
                         <SemanticZoom.ZoomedInView>
-                            <controls:AdaptiveGridView SelectionMode="None" x:Name="InListView2" Background="{ThemeResource SystemControlAcrylicWindowBrush}" DesiredWidth="450" StretchContentForSingleRow="True">
+                            <controls:AdaptiveGridView SelectionMode="None" x:Name="InListView2" DesiredWidth="450" StretchContentForSingleRow="True">
                                 <!--分组控件-->
                                 <GridView.GroupStyle>
                                     <GroupStyle>
@@ -135,19 +138,19 @@
                                                     <ColumnDefinition Width="2*"></ColumnDefinition>
                                                 </Grid.ColumnDefinitions>
                                                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="0" >
-                                                    <TextBlock Text="{Binding kechengming}" TextWrapping="Wrap" FontSize="17"></TextBlock>
+                                                    <TextBlock Text="{Binding kechengming}" Style="{StaticResource TextBlockStyle}" FontSize="17"></TextBlock>
                                                     <!--<TextBlock Text="{Binding yingwenkechengming}" Style="{StaticResource SmallTextBlockStyle}"></TextBlock>-->
 
                                                 </StackPanel>
                                                 <StackPanel Grid.Column="1" Margin="5,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" >
-                                                    <TextBlock Text="{Binding xuefen}" Foreground="Black" Style="{StaticResource SmallTextBlockStyle}"></TextBlock>
+                                                    <TextBlock Text="{Binding xuefen}"  FontSize="15" TextWrapping="Wrap"></TextBlock>
                                                     <TextBlock Text="{Binding kechengshuxing}" Style="{StaticResource SmallTextBlockStyle}"></TextBlock>
                                                 </StackPanel>
                                                 <StackPanel Grid.Column="2" Margin="5,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" >
-                                                    <TextBlock Text="{Binding time}" Foreground="Black"  Style="{StaticResource SmallTextBlockStyle}"></TextBlock>
+                                                    <TextBlock Text="{Binding time}"  FontSize="15" TextWrapping="Wrap"></TextBlock>
                                                 </StackPanel>
                                                 <StackPanel Grid.Column="3" Margin="5,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" >
-                                                    <TextBlock Text="{Binding chengji}" TextWrapping="Wrap" FontSize="30"></TextBlock>
+                                                    <TextBlock Text="{Binding chengji}" Style="{StaticResource TextBlockStyle}" FontSize="30"></TextBlock>
                                                 </StackPanel>
                                             </Grid>
                                         </Border>

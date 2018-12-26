@@ -20,7 +20,7 @@
             <ListView.ItemTemplate >
                 <DataTemplate>
                     <Border BorderThickness="2,2,2,2" Margin="0,3,0,3" BorderBrush="LightGray" >
-                        <controls:Expander  Header="{Binding value}" Expanded="Expander_OnExpanded" Background="White" Foreground="Black"/>
+                        <controls:Expander  Header="{Binding value}" Expanded="Expander_OnExpanded" />
                     </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>

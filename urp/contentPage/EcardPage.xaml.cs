@@ -88,6 +88,7 @@ namespace urp.contentPage
 
         private void GetInfo()
         {
+            
             Thread moneyThread = new Thread(GetMoneyDelegate);
             Thread listThread = new Thread(GetMoneyListDelegate);
             Thread thisThread = new Thread(GetThisMonthMoneyDelegate);

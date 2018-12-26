@@ -35,7 +35,7 @@
 
             <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBox Name="CheckCode"  VerticalAlignment="Center" Width="260" Margin="0,0,20,0" PlaceholderText="验证码"/>
-                <Image VerticalAlignment="Center" Source="Assets/yzm.png" Tapped="CheckCodeImage_OnTapped" x:Name="CheckCodeImage"  Height="33"></Image>
+                <Image VerticalAlignment="Center" Source="../Assets/InfoImage/yzm.png" Tapped="CheckCodeImage_OnTapped" x:Name="CheckCodeImage"  Height="33"></Image>
                 <ProgressRing Name="CheckCodeRing" IsActive="False"></ProgressRing>
             </StackPanel>
             <Button Name="LoginButton" Grid.Row="4" Background="#FF42A214" Foreground="White" Click="LoginButton_OnClick"
@@ -53,7 +53,7 @@
                 </StackPanel>
             </Button>
             <ProgressRing Name="LoginRing" Grid.Row="5" IsActive="False" VerticalAlignment="Top"></ProgressRing>
-            <CommandBar Grid.Row="5" VerticalAlignment="Bottom" DefaultLabelPosition="Bottom" Background="WhiteSmoke">
+            <CommandBar Grid.Row="5" VerticalAlignment="Bottom" DefaultLabelPosition="Bottom" >
                 <AppBarButton Icon="Setting" x:Name="Setting" Label="更换数据源" Tapped="Setting_OnTapped"></AppBarButton>
             </CommandBar>
             <controls:InAppNotification x:Name="LoginNotification" Grid.Row="5" ></controls:InAppNotification>

@@ -5,7 +5,6 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Timers;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Popups;
@@ -39,48 +38,73 @@ namespace urp
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             contentFrame.Navigate(typeof(MainViewPage));
-            MainItem.IsSelected = true;
         }
         
-        private void MainNavigation_OnItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
+        
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            if (args.InvokedItem.Equals("主页"))
+            if (splitView.IsPaneOpen)
             {
-                contentFrame.Navigate(typeof(MainViewPage));
+                splitView.IsPaneOpen = false;
             }
-            if (args.InvokedItem.Equals("教务公告"))
+            else
             {
-                contentFrame.Navigate(typeof(NotifyPage));
+                splitView.IsPaneOpen = true;
             }
-            if (args.InvokedItem.Equals("个人信息"))
-            {
-                contentFrame.Navigate(typeof(XinxiPage));
-            }
-            if (args.InvokedItem.Equals("成绩"))
-            {
-                contentFrame.Navigate(typeof(ChengjiPage));
-            }
-            if (args.InvokedItem.Equals("学分绩点"))
-            {
-                contentFrame.Navigate(typeof(JidianPage));
-            }
-            if (args.InvokedItem.Equals("课表"))
-            {
-                contentFrame.Navigate(typeof(KebiaoPage));
-            }
-            if (args.InvokedItem.Equals("学生卡账单"))
-            {
-                contentFrame.Navigate(typeof(EcardPage));
-            }
+        }
 
-            if (args.InvokedItem.Equals("一键评教"))
-            {
-                contentFrame.Navigate(typeof(PingguPage));
-            }
-            if (args.IsSettingsInvoked)
-            {
-                contentFrame.Navigate(typeof(AboutPage));
-            }
+        private void MainItem_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            contentFrame.Navigate(typeof(MainViewPage));
+            splitView.IsPaneOpen = false;
+        }
+
+        private void GonggaoItem_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            contentFrame.Navigate(typeof(NotifyPage));
+            splitView.IsPaneOpen = false;
+        }
+
+        private void XinxiItem_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            contentFrame.Navigate(typeof(XinxiPage));
+            splitView.IsPaneOpen = false;
+        }
+
+        private void ChengjiItem_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            contentFrame.Navigate(typeof(ChengjiPage));
+            splitView.IsPaneOpen = false;
+        }
+
+        private void JidianItem_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            contentFrame.Navigate(typeof(JidianPage));
+            splitView.IsPaneOpen = false;
+        }
+
+        private void EcardItem_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            contentFrame.Navigate(typeof(EcardPage));
+            splitView.IsPaneOpen = false;
+        }
+
+        private void PingjiaoItem_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            contentFrame.Navigate(typeof(PingguPage));
+            splitView.IsPaneOpen = false;
+        }
+
+        private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            contentFrame.Navigate(typeof(AboutPage));
+            splitView.IsPaneOpen = false;
+        }
+
+        private void KebiaoItem_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            contentFrame.Navigate(typeof(KebiaoPage));
+            splitView.IsPaneOpen = false;
         }
     }
 }

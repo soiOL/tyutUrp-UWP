@@ -10,11 +10,10 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Rectangle  Fill="{ThemeResource SystemControlAcrylicWindowBrush}"/>
         <ScrollViewer>
             <StackPanel HorizontalAlignment="Center"  >
-                <StackPanel Margin="0,40,0,50" Background="White">
-                    <Border BorderThickness="5,5,5,5" BorderBrush="WhiteSmoke">
+                <StackPanel Margin="0,40,0,50" Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+                    <Border BorderThickness="5,5,5,5" BorderBrush="LightGray">
                         <StackPanel>
                             <Grid >
                                 <Grid.ColumnDefinitions>
@@ -25,8 +24,8 @@
                                 <Ellipse
                                     Grid.Column="1"
                                     Margin="0,50,0,0"
-                                    Height="200"
-                                    Width="200"
+                                    MaxHeight="200"
+                                    MaxWidth="200"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Stretch="UniformToFill"
@@ -38,10 +37,10 @@
                             </Grid>
 
 
-                            <TextBlock Margin="50,30,50,0" FontSize="25" Foreground="Gray" x:Name="NameText"></TextBlock>
-                            <TextBlock Margin="50,20,50,0" FontSize="25" Foreground="Gray" x:Name="StuNumberText"></TextBlock>
-                            <TextBlock Margin="50,20,50,0" FontSize="25" Foreground="Gray" x:Name="XiSuoText"></TextBlock>
-                            <TextBlock Margin="50,20,50,30" FontSize="25" Foreground="Gray" x:Name="BanJiText"></TextBlock>
+                            <TextBlock Margin="50,30,50,0" FontSize="25"  x:Name="NameText"></TextBlock>
+                            <TextBlock Margin="50,20,50,0" FontSize="25"  x:Name="StuNumberText"></TextBlock>
+                            <TextBlock Margin="50,20,50,0" FontSize="25"  x:Name="XiSuoText"></TextBlock>
+                            <TextBlock Margin="50,20,50,30" FontSize="25"  x:Name="BanJiText"></TextBlock>
                         </StackPanel>
                      </Border>
                 </StackPanel>
