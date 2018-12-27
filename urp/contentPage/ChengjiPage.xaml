@@ -10,6 +10,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid >
+
         <!--全局的semanticzoom源-->
         <Grid.Resources>
             <CollectionViewSource x:Name="itemcollectionSource" IsSourceGrouped="True" ItemsPath="ScoreList"></CollectionViewSource>
@@ -29,9 +30,10 @@
             <Style x:Key="BorderStyle" TargetType="Border">
                 <Setter Property="BorderThickness" Value="4,4,4,4" ></Setter>
                 <Setter Property="BorderBrush" Value="LightGray" ></Setter>
-                <Setter Property="Background" Value="{ThemeResource SystemControlAcrylicWindowBrush}"></Setter>
+                <Setter Property="Background" Value="{ThemeResource ApplicationPageBackgroundThemeBrush}"></Setter>
             </Style>
         </Grid.Resources>
+        <Rectangle  Fill="{ThemeResource SystemControlAcrylicWindowBrush}"/>
         <Pivot x:Name="Pivot1" SelectionChanged="Pivot1_SelectionChanged"  >
             <!--及格成绩pivot-->
             <PivotItem >
@@ -44,7 +46,7 @@
                     <SemanticZoom x:Name="SemanticZoom1">
                         <!--放大视图-->
                         <SemanticZoom.ZoomedInView>
-                            <controls:AdaptiveGridView SelectionMode="None" x:Name="InListView1"  DesiredWidth="450" StretchContentForSingleRow="True">
+                            <controls:AdaptiveGridView SelectionMode="None" x:Name="InListView1"  DesiredWidth="500" StretchContentForSingleRow="True">
                                 <!--分组控件-->
                                 <GridView.GroupStyle>
                                     <GroupStyle>
@@ -113,7 +115,7 @@
                     <SemanticZoom x:Name="SemanticZoom2">
                         <!--放大视图-->
                         <SemanticZoom.ZoomedInView>
-                            <controls:AdaptiveGridView SelectionMode="None" x:Name="InListView2" DesiredWidth="450" StretchContentForSingleRow="True">
+                            <controls:AdaptiveGridView SelectionMode="None" x:Name="InListView2" DesiredWidth="500" StretchContentForSingleRow="True">
                                 <!--分组控件-->
                                 <GridView.GroupStyle>
                                     <GroupStyle>

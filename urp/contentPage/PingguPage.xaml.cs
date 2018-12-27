@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text;
 using System.Threading;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
@@ -83,8 +84,13 @@ namespace urp.contentPage
                     }
                     index++;
                 }
+                pgList = await urpUtil.getPlist();
                 Notification.Show("评教完成");
                 ContentDialog.IsPrimaryButtonEnabled = true;
+            }
+            else
+            {
+                Notification.Show("无可评估项",3000);
             }
         }
     }

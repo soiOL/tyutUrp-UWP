@@ -2,15 +2,21 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Web;
 using Windows.Storage;
 using Windows.UI.Xaml.Media.Imaging;
+using Windows.Web.Http;
+using Windows.Web.Http.Headers;
 using HtmlAgilityPack;
 using Newtonsoft.Json;
 using urp.contentPage;
 using urp.Struct;
+using HttpClient = Windows.Web.Http.HttpClient;
+using HttpRequestMessage = System.Net.Http.HttpRequestMessage;
 
 namespace urp.Util
 {
@@ -497,6 +503,8 @@ namespace urp.Util
             {
                 string userName = (string)localSettings.Values["userName"];
                 string passWord = (string)localSettings.Values[userName];
+                if (string.IsNullOrWhiteSpace(passWord))
+                    return FAIL;
                 string result = await webUtil.GetString(UrpApi2.URL_ECARD_LOGIN + "?stucode="+userName+"&stupsw="+passWord);
                 if (result.Contains("0000") || result.Contains("9999"))
                 {
@@ -645,5 +653,6 @@ namespace urp.Util
             }
             
         }
+        
     }
 }

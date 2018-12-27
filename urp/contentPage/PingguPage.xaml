@@ -16,7 +16,8 @@
             <ColumnDefinition Width="1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <StackPanel HorizontalAlignment="Stretch" Grid.Column="1" VerticalAlignment="Center" Margin="0,-100,0,0" >
-            <TextBox HorizontalAlignment="Stretch"  x:Name="TextBox1" Height="200"  Text="很优秀的老师" FontSize="30" TextWrapping="Wrap" IsEnabled="False" ></TextBox>
+            <TextBlock Text="(目前中文评教乱码，请尽量使用英文)"/>
+            <TextBox HorizontalAlignment="Stretch"  x:Name="TextBox1" Height="200"  Text="good" FontSize="30" TextWrapping="Wrap" IsEnabled="False" ></TextBox>
             <Button x:Name="Button" Background="LimeGreen" Click="Button_OnClick" HorizontalAlignment="Center" IsEnabled="False" Margin="0,40,0,0" Height="40" Width="100">
                 <TextBlock Text="一键评教" Foreground="White"></TextBlock>
             </Button>

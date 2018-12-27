@@ -6,6 +6,7 @@ using Windows.ApplicationModel.Core;
 using Windows.Storage;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 using urp.Struct;
 using urp.Util;
@@ -29,6 +30,7 @@ namespace urp.contentPage
         private DateTime NowDateTime;
         private bool IsLoadingList = false;
         private bool IsAllLoaded = false;
+        private bool IsFirstDialog = true;
         public static bool IsLogin = false;
 
         //线程锁
@@ -45,11 +47,11 @@ namespace urp.contentPage
             GridView.ItemsSource = MoneyList;
         }
 
-        //页面打开时
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            MainGet();
-        }
+        ////页面打开时
+        //protected override void OnNavigatedTo(NavigationEventArgs e)
+        //{
+        //    MainGet();
+        //}
         
         //登录获取数据
         private async void MainGet()
@@ -74,7 +76,8 @@ namespace urp.contentPage
                 Ring2.IsActive = false;
                 Ring3.IsActive = false;
                 Ring4.IsActive = false;
-                await ContentDialog.ShowAsync();
+                ErrorTextBlock.Text = "密码错误";
+                ContentDialog.ShowAsync();
             }
             else
             {
@@ -249,12 +252,7 @@ namespace urp.contentPage
             return defaultValue;
         }
 
-        //修改密码后重新获取数据
-        private void ContentDialog_OnPrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-            localSettings.Values[(string)localSettings.Values["userName"]] = PassWordBox.Password;
-            MainGet();
-        }
+    
 
         //下拉自动获取更多数据
         private void GridView_ContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
@@ -279,6 +277,32 @@ namespace urp.contentPage
                     GridView.ContainerContentChanging -= GridView_ContainerContentChanging;
                 }
             }
+        }
+
+        private void Page_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            MainGet();
+        }
+
+        private async void ContentDialog_OnPrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            if (!string.IsNullOrWhiteSpace(PassWordBox.Password))
+            {
+                ErrorTextBlock.Text = "";
+                string userName = (string) localSettings.Values["userName"];
+                localSettings.Values[userName] = PassWordBox.Password;
+                MainGet();
+            }
+            else
+            {
+                args.Cancel = true;
+                ErrorTextBlock.Text = "密码不能为空";
+            }
+        }
+
+        private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            ContentDialog.ShowAsync();
         }
     }
 }

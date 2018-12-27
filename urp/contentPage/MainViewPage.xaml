@@ -10,9 +10,10 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <Rectangle  Fill="{ThemeResource SystemControlAcrylicWindowBrush}"/>
         <ScrollViewer>
             <StackPanel HorizontalAlignment="Center"  >
-                <StackPanel Margin="0,40,0,50" Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+                <StackPanel Margin="0,40,0,50" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
                     <Border BorderThickness="5,5,5,5" BorderBrush="LightGray">
                         <StackPanel>
                             <Grid >

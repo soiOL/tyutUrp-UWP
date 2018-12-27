@@ -9,9 +9,10 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <Rectangle  Fill="{ThemeResource SystemControlAcrylicWindowBrush}"/>
         <ScrollViewer >
             <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
-                <StackPanel Margin="0,40,0,50" Background="{ThemeResource SystemControlAcrylicWindowBrush}" >
+                <StackPanel Margin="0,40,0,50" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
                     <Border  BorderBrush="LightGray" BorderThickness="5,5,5,5" >
                         <StackPanel Margin="10,10,10,10">
                             <TextBlock Text="简教UWP" HorizontalAlignment="Center"  Style="{StaticResource TitleTextBlockStyle}" FontSize="48" FontFamily="Microsoft YaHei Light"/>

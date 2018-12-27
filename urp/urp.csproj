@@ -11,7 +11,7 @@
     <AssemblyName>urp</AssemblyName>
     <DefaultLanguage>zh-CN</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.17763.0</TargetPlatformVersion>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.17134.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -19,7 +19,7 @@
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
     <PackageCertificateKeyFile>urp_StoreKey.pfx</PackageCertificateKeyFile>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
-    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <PackageCertificateThumbprint>3832153EBA0B007808F42542D7D89147446135B3</PackageCertificateThumbprint>

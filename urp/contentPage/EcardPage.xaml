@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Loaded="Page_Loaded">
     <Grid>
         <Grid>
             <Grid.Resources>
@@ -40,7 +40,7 @@
                 <Style x:Key="BorderStyle" TargetType="Border">
                     <Setter Property="BorderThickness" Value="2,2,2,2" ></Setter>
                     <Setter Property="BorderBrush" Value="LightGray" ></Setter>
-                    <Setter Property="Background" Value="{ThemeResource SystemControlAcrylicWindowBrush}"></Setter>
+                    <Setter Property="Background" Value="{ThemeResource ApplicationPageBackgroundThemeBrush}"></Setter>
                 </Style>
             </Grid.Resources>
             <Grid x:Name="HeadGrid" Grid.Row="0" >
@@ -92,6 +92,7 @@
             </Grid>
 
             <Grid Grid.Row="1" >
+                <Rectangle  Fill="{ThemeResource SystemControlAcrylicWindowBrush}"/>
                 <controls:AdaptiveGridView x:Name="GridView" DesiredWidth="350" StretchContentForSingleRow="True" SelectionMode="None" ContainerContentChanging="GridView_ContainerContentChanging" >
                     <GridView.ItemTemplate>
                         <DataTemplate>
@@ -129,11 +130,13 @@
             x:Name="ContentDialog"
             Title="请输入一卡通密码"
             PrimaryButtonText="确认"
-            DefaultButton="Primary"   
+            DefaultButton="Primary"
             PrimaryButtonClick="ContentDialog_OnPrimaryButtonClick"
+            CloseButtonText="取消"
         >
             <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                 <PasswordBox x:Name="PassWordBox"  PlaceholderText="密码"/>
+                <TextBlock x:Name="ErrorTextBlock" Foreground="Red"></TextBlock>
             </StackPanel>
         </ContentDialog>
     </Grid>
